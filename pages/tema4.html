@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 7: Perbezaan Bacaan - Pembelajaran Interaktif</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2c5c7f;
+      --secondary: #4f8cb3;
+      --accent: #f8b500;
+      --light: #f5f5f5;
+      --dark: #333;
+      --success: #28a745;
+      --danger: #dc3545;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 2rem;
+    }
+    
+    .arabic {
+      font-family: 'Amiri', serif;
+      font-size: 2.5rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    /* Header Styles */
+    .site-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 5px solid var(--accent);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .site-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tagline {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    
+    /* Navigation */
+    .top-nav {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-tabs {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-tabs li {
+      margin: 0;
+    }
+    
+    .nav-tabs a {
+      display: block;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .nav-tabs a:hover, .nav-tabs a.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--accent);
+      background-color: #f9f9f9;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 1rem;
+    }
+    
+    /* Topic Overview */
+    .topic-overview {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    
+    .topic-overview h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+    
+    /* Interactive Cards */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .topic-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+    
+    .card-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .card-header h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-header .arabic {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-content {
+      padding: 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    
+    .card-content.active {
+      max-height: 500px;
+    }
+    
+    .card-content ul {
+      list-style-type: none;
+      margin: 1rem 0;
+    }
+    
+    .card-content li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+    
+    .card-content li:before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      display: inline-block;
+      width: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    /* Audio Examples */
+    .audio-examples {
+      margin-top: 1.5rem;
+      background-color: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    
+    .audio-examples h4 {
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .audio-player {
+      width: 100%;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      background: #eee;
+    }
+    
+    /* Buttons */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .button:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .button.secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .button.secondary:hover {
+      background: #f0f8ff;
+    }
+    
+    /* Footer */
+    .site-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      color: var(--dark);
+      opacity: 0.8;
+    }
+    
+    .credit-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .credit-link:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+      }
+      
+      .nav-tabs {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .practice-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="../audio/background-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <header class="site-header">
+    <div class="container">
+      <h1>Tema 7: Perbezaan Bacaan</h1>
+      <p class="tagline">Belajar Madd, Qalqalah dan Tajwid Asas</p>
+    </div>
+  </header>
+
+  <nav class="top-nav">
+    <div class="container nav-container">
+      <div class="logo">
+        <h2>Pembelajaran Tajwid</h2>
+      </div>
+   
+    </div>
+  </nav>
+
+  <main class="main-content container">
+    <section class="topic-overview">
+      <h2>Pengenalan Tajwid</h2>
+      <p>Tajwid ialah ilmu yang mengajarkan cara membaca Al-Quran dengan betul dan indah. Dalam tema ini, kita akan mempelajari beberapa hukum tajwid asas seperti Madd, Qalqalah, serta perbezaan bacaan huruf tebal (Tafkhim) dan tipis (Tarqiq).</p>
+    </section>
+
+    <div class="card-container">
+      <!-- Madd Asli -->
+      <div class="topic-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <p class="arabic">آ</p>
+          <h3>Madd Asli</h3>
+        </div>
+        <div class="card-content">
+          <p>Madd Asli adalah madd tabii yang terjadi apabila terdapat huruf mad (alif, wau, ya) dan tidak diikuti oleh hamzah atau sukun.</p>
+          <ul>
+            <li>Panjang 2 harakat</li>
+            <li>Alif, Waw, Ya sebagai huruf mad</li>
+            <li>Contoh: قـال (qāla - dia berkata)</li>
+            <li>Contoh: بـيـت (bayt - rumah)</li>
+          </ul>
+          <div class="audio-examples">
+            <h4>Contoh Bacaan:</h4>
+            <audio controls class="audio-player">
+              <source src="/audio/koola.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Madd Far'i -->
+      <div class="topic-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <p class="arabic">ءَا</p>
+          <h3>Madd Far'i</h3>
+        </div>
+        <div class="card-content">
+          <p>Madd Far'i adalah madd yang terjadi karena adanya hamzah atau sukun setelah huruf mad.</p>
+          <ul>
+            <li>Panjang 4-5 harakat</li>
+            <li>Ada hamzah atau sukun</li>
+            <li>Contoh: جـاء (jā'a - dia datang)</li>
+            <li>Contoh: سـمـاء (samā' - langit)</li>
+          </ul>
+          <div class="audio-examples">
+            <h4>Contoh Bacaan:</h4>
+            <audio controls class="audio-player">
+              <source src="/audio/ja_madfari.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Qalqalah -->
+      <div class="topic-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <p class="arabic">ق</p>
+          <h3>Qalqalah</h3>
+        </div>
+        <div class="card-content">
+          <p>Qalqalah adalah memantulkan suara ketika membaca huruf qalqalah yang berharakat sukun.</p>
+          <ul>
+            <li>Huruf: ق ط ب ج د</li>
+            <li>Bunyi memantul bila mati</li>
+            <li>Contoh: أَطْعَـمَ (aṭ'ama - memberi makan)</li>
+            <li>Contoh: يَـخْـرُج (yakhruj - keluar)</li>
+          </ul>
+          <div class="audio-examples">
+            <h4>Contoh Bacaan:</h4>
+            <audio controls class="audio-player">
+              <source src="/audio/qalqalah.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tafkhim -->
+      <div class="topic-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <p class="arabic">خ</p>
+          <h3>Tafkhim (Tebal)</h3>
+        </div>
+        <div class="card-content">
+          <p>Tafkhim adalah membaca huruf dengan tebal, terutama ketika ada huruf yang berbaris fathah atau dhammah.</p>
+          <ul>
+            <li>خ ص ض غ ط ق ظ</li>
+            <li>Dibaca dengan tebal</li>
+            <li>Contoh: غَـضَـبَ (ghaḍaba - marah)</li>
+            <li>Contoh: قَـلْـب (qalb - hati)</li>
+          </ul>
+          <div class="audio-examples">
+            <h4>Contoh Bacaan:</h4>
+            <audio controls class="audio-player">
+              <source src="/audio/qalb_tarkhim.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarqiq -->
+      <div class="topic-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <p class="arabic">س</p>
+          <h3>Tarqiq (Tipis)</h3>
+        </div>
+        <div class="card-content">
+          <p>Tarqiq adalah membaca huruf dengan tipis, terutama ketika ada huruf yang berbaris kasrah.</p>
+          <ul>
+            <li>Selain huruf tebal</li>
+            <li>Dibaca dengan tipis</li>
+            <li>Contoh: سَـمِـعَ (sami'a - mendengar)</li>
+            <li>Contoh: كَـتِـبَ (kataba - menulis)</li>
+          </ul>
+          <div class="audio-examples">
+            <h4>Contoh Bacaan:</h4>
+            <audio controls class="audio-player">
+              <source src="/audio/samiaa.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nun Sakinah -->
+      <div class="topic-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <p class="arabic">نْ</p>
+          <h3>Nun Sakinah</h3>
+        </div>
+        <div class="card-content">
+          <p>Nun Sakinah adalah nun mati (نْ) yang memiliki beberapa hukum bacaan tergantung huruf setelahnya.</p>
+          <ul>
+            <li>Nun mati (نْ)</li>
+            <li>Hukum: Izhar, Idgham, Iqlab, Ikhfa</li>
+            <li>Contoh: مِنْ (min - dari)</li>
+            <li>Contoh: أَنْ (an - bahwa)</li>
+          </ul>
+          <div class="audio-examples">
+            <h4>Contoh Bacaan:</h4>
+            <audio controls class="audio-player">
+              <source src="/audio/min_nunsukun.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tanwin -->
+      <div class="topic-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <p class="arabic">ً</p>
+          <h3>Tanwin</h3>
+        </div>
+        <div class="card-content">
+          <p>Tanwin adalah tanda baca yang menunjukkan nunasi (nunation) pada akhir kata.</p>
+          <ul>
+            <li>Fathatain (ً), Kasratain (ٍ), Dammatain (ٌ)</li>
+            <li>Hukum sama seperti Nun Sakinah</li>
+            <li>Contoh: كِـتَـابٌ (kitābun - sebuah buku)</li>
+            <li>Contoh:  ٌبَيْت(baytun - sebuah rumah)</li>
+          </ul>
+          <div class="audio-examples">
+            <h4>Contoh Bacaan:</h4>
+            <audio controls class="audio-player">
+              <source src="/audio/tanwin.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <a href="../index.html" class="button">Kembali ke Laman Utama</a>
+      <a href="../pages/q4.html" class="button secondary">Uji Pemahaman</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Guru SK Gading-Gading</a></p>
+  </footer>
+
+  <script>
+    function toggleCard(element) {
+      const cardContent = element.nextElementSibling;
+      cardContent.classList.toggle('active');
+    }
+    
+    // Initialize first card as open
+    document.addEventListener('DOMContentLoaded', function() {
+      const firstCard = document.querySelector('.card-header');
+      if (firstCard) {
+        firstCard.nextElementSibling.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>

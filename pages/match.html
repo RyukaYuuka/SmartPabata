@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Padankan Huruf!</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="../audio/background-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <header class="site-header">
+    <h1 id="match-title">Padankan Huruf!</h1>
+    <p id="match-subtitle" class="tagline">Klik. Seret. Padankan!</p>
+  </header>
+
+  <main class="main-content">
+    <div class="quiz-container">
+      <div class="match-col" id="draggable-col">
+        <!-- Draggable items will be inserted here by JavaScript -->
+      </div>
+
+      <div class="match-col" id="droppable-col">
+        <!-- Droppable items will be inserted here by JavaScript -->
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="button check-answers">Hantar Jawapan</button>
+      <button class="button reset-quiz">Kosongkan Jawapan</button>
+      <a href="../index.html" class="button">Kembali ke Laman Utama</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Guru SK Gading-Gading</a></p>
+  </footer>
+
+  <script src="../src/script.js"></script>
+</body>
+</html>

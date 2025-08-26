@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Tema 3: Huruf Bersambung</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --correct-color: #4caf50;
+            --wrong-color: #f44336;
+            --highlight-color: #ffeb3b;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --card-radius: 15px;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quiz-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .connect-game {
+            text-align: center;
+        }
+        
+        .connect-pairs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .connect-item {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            border-radius: var(--card-radius);
+            text-align: center;
+            font-size: 2rem;
+            cursor: pointer;
+            font-family: 'Amiri', serif;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+        
+        .connect-target {
+            background: var(--highlight-color);
+            color: var(--text-dark);
+            padding: 20px;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            min-height: 80px;
+        }
+        
+        .selected {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px var(--secondary-color);
+        }
+        
+        .matched {
+            background: var(--correct-color) !important;
+            color: white !important;
+            cursor: default;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .next-btn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 20px auto 0;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .connect-pairs {
+                grid-template-columns: 1fr;
+            }
+            
+            .connect-item, .connect-target {
+                padding: 15px;
+                font-size: 1.5rem;
+            }
+        }
+
+         .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .home-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .home-btn:hover {
+            background: #5a6268;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Tema 3: Huruf Bersambung</h2>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="score-display" id="scoreDisplay">Skor: 0/0</div>
+        <div class="connect-game">
+            <p>Padankan bentuk dengan kedudukannya:</p>
+            
+            <div class="connect-pairs" id="connectPairs"></div>
+        </div>
+        <button class="next-btn" id="nextBtn" style="display: none;">Soalan Seterusnya</button>
+    </div>
+
+    <div class="nav-buttons">
+            <a href="../index.html" class="home-btn">Kembali ke Laman Utama</a>
+            <button class="next-btn" id="nextBtn" style="display: none;">Soalan Seterusnya</button>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // All possible matching pairs
+            const allPairs = [
+                { letter: "بـ", position: "Awal perkataan", match: "awal" },
+                { letter: "ـبـ", position: "Tengah perkataan", match: "tengah" },
+                { letter: "ـب", position: "Akhir perkataan", match: "akhir" },
+                { letter: "تـ", position: "Awal perkataan", match: "awal" },
+                { letter: "ـتـ", position: "Tengah perkataan", match: "tengah" },
+                { letter: "ـت", position: "Akhir perkataan", match: "akhir" },
+                { letter: "جـ", position: "Awal perkataan", match: "awal" },
+                { letter: "ـجـ", position: "Tengah perkataan", match: "tengah" },
+                { letter: "ـج", position: "Akhir perkataan", match: "akhir" }
+            ];
+            
+            let currentPairs = [];
+            let selectedItem = null;
+            let matchedPairs = 0;
+            let score = 0;
+            let totalQuestionsPerRound = 3;
+            
+            const connectPairs = document.getElementById('connectPairs');
+            const progressBar = document.getElementById('progressBar');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Initialize the quiz
+            function initQuiz() {
+                // Reset variables
+                score = 0;
+                matchedPairs = 0;
+                selectedItem = null;
+                
+                // Select 3 random pairs (each pair has letter and position)
+                const shuffled = [...allPairs].sort(() => 0.5 - Math.random());
+                const selectedLetters = shuffled.slice(0, totalQuestionsPerRound);
+                const selectedPositions = [...selectedLetters].sort(() => 0.5 - Math.random());
+                
+                currentPairs = selectedLetters.map((letter, i) => ({
+                    letter: letter.letter,
+                    position: selectedPositions[i].position,
+                    match: letter.match,
+                    correctPosition: letter.position
+                }));
+                
+                renderPairs();
+                updateProgress();
+                updateScore();
+                nextBtn.style.display = 'none';
+            }
+            
+            // Render the pairs
+            function renderPairs() {
+                connectPairs.innerHTML = '';
+                
+                // Add letter items
+                currentPairs.forEach(pair => {
+                    const item = document.createElement('div');
+                    item.className = 'connect-item';
+                    item.textContent = pair.letter;
+                    item.dataset.match = pair.match;
+                    item.addEventListener('click', selectItem);
+                    connectPairs.appendChild(item);
+                });
+                
+                // Add position targets
+                currentPairs.forEach(pair => {
+                    const target = document.createElement('div');
+                    target.className = 'connect-target';
+                    target.textContent = pair.position;
+                    target.dataset.match = pair.match;
+                    target.dataset.correctPosition = pair.correctPosition;
+                    target.addEventListener('click', selectTarget);
+                    connectPairs.appendChild(target);
+                });
+            }
+            
+            // Select a letter item
+            function selectItem() {
+                if (this.classList.contains('matched')) return;
+                
+                // Remove previous selection
+                document.querySelectorAll('.connect-item, .connect-target').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+                selectedItem = this;
+            }
+            
+            // Select a position target
+            function selectTarget() {
+                if (!selectedItem || this.classList.contains('matched')) return;
+                
+                if (selectedItem.dataset.match === this.dataset.match) {
+                    // Correct match
+                    this.textContent = `${selectedItem.textContent} → ${this.textContent}`;
+                    this.classList.add('matched');
+                    selectedItem.classList.add('matched');
+                    
+                    // Check if the position is also correct
+                    if (this.textContent.includes(this.dataset.correctPosition)) {
+                        score++;
+                    }
+                    
+                    matchedPairs++;
+                    updateScore();
+                    updateProgress();
+                    
+                    // Check if all pairs matched
+                    if (matchedPairs === currentPairs.length) {
+                        nextBtn.style.display = 'block';
+                    }
+                }
+                
+                selectedItem = null;
+            }
+            
+            // Update progress bar
+            function updateProgress() {
+                const progress = (matchedPairs / currentPairs.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Update score display
+            function updateScore() {
+                scoreDisplay.textContent = `Skor: ${score}/${matchedPairs}`;
+            }
+            
+            // Next button event
+            nextBtn.addEventListener('click', initQuiz);
+            
+            // Start the quiz
+            initQuiz();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Tema 2: Huruf Berbaris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --correct-color: #4caf50;
+            --wrong-color: #f44336;
+            --highlight-color: #ffeb3b;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --card-radius: 15px;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quiz-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .bubble-question {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .arabic-letter {
+            font-family: 'Amiri', serif;
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin: 20px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .bubble-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .bubble-option {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            box-shadow: var(--shadow);
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .bubble-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+        }
+        
+        .bubble-option.correct {
+            background: var(--correct-color);
+            animation: bounce 0.5s;
+        }
+        
+        .bubble-option.wrong {
+            background: var(--wrong-color);
+            animation: shake 0.5s;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .next-btn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 20px auto 0;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        @media (max-width: 768px) {
+            .bubble-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .bubble-option {
+                width: 100%;
+            }
+        }
+
+           .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .home-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .home-btn:hover {
+            background: #5a6268;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Tema 2: Huruf Berbaris</h2>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="score-display" id="scoreDisplay">Skor: 0/0</div>
+        <div class="bubble-question" id="questionContainer">
+            <p>Pilih bunyi yang betul untuk:</p>
+            <div class="arabic-letter" id="arabicLetter"></div>
+        </div>
+        
+        <div class="bubble-options" id="optionsContainer"></div>
+        <button class="next-btn" id="nextBtn" style="display: none;">Soalan Seterusnya</button>
+    </div>
+
+      
+        <div class="nav-buttons">
+            <a href="../index.html" class="home-btn">Kembali ke Laman Utama</a>
+            <button class="next-btn" id="nextBtn" style="display: none;">Soalan Seterusnya</button>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // All possible questions
+            const allQuestions = [
+                {
+                    letter: "بَ",
+                    correct: "ba",
+                    options: ["bi", "ba", "bu"],
+                    explanation: "Baris atas (Fathah) menghasilkan bunyi 'a' pendek"
+                },
+                {
+                    letter: "بِ",
+                    correct: "bi",
+                    options: ["ba", "bi", "bu"],
+                    explanation: "Baris bawah (Kasrah) menghasilkan bunyi 'i' pendek"
+                },
+                {
+                    letter: "بُ",
+                    correct: "bu",
+                    options: ["ba", "bi", "bu"],
+                    explanation: "Baris depan (Dammah) menghasilkan bunyi 'u' pendek"
+                },
+                {
+                    letter: "تً",
+                    correct: "tan",
+                    options: ["tan", "tin", "tun"],
+                    explanation: "Tanwin Fathah menghasilkan bunyi 'an'"
+                },
+                {
+                    letter: "تٍ",
+                    correct: "tin",
+                    options: ["tan", "tin", "tun"],
+                    explanation: "Tanwin Kasrah menghasilkan bunyi 'in'"
+                },
+                {
+                    letter: "تٌ",
+                    correct: "tun",
+                    options: ["tan", "tin", "tun"],
+                    explanation: "Tanwin Dammah menghasilkan bunyi 'un'"
+                }
+            ];
+            
+            let currentQuestions = [];
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let totalAnswered = 0;
+            const totalQuestionsPerRound = 3;
+            
+            const arabicLetter = document.getElementById('arabicLetter');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const progressBar = document.getElementById('progressBar');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Initialize the quiz
+            function initQuiz() {
+                // Reset variables
+                score = 0;
+                totalAnswered = 0;
+                currentQuestionIndex = 0;
+                
+                // Select 3 random questions
+                currentQuestions = [...allQuestions]
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, totalQuestionsPerRound);
+                
+                showQuestion();
+                updateProgress();
+                updateScore();
+                nextBtn.style.display = 'none';
+            }
+            
+            // Show current question
+            function showQuestion() {
+                if (currentQuestionIndex >= currentQuestions.length) {
+                    nextBtn.textContent = "Mulakan Set Soalan Baru";
+                    nextBtn.style.display = 'block';
+                    return;
+                }
+                
+                const question = currentQuestions[currentQuestionIndex];
+                arabicLetter.textContent = question.letter;
+                
+                optionsContainer.innerHTML = '';
+                question.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'bubble-option';
+                    button.textContent = option;
+                    button.dataset.correct = option === question.correct;
+                    button.addEventListener('click', () => checkAnswer(option === question.correct, button));
+                    optionsContainer.appendChild(button);
+                });
+            }
+            
+            // Check answer
+            function checkAnswer(isCorrect, button) {
+                // Disable all buttons
+                document.querySelectorAll('.bubble-option').forEach(btn => {
+                    btn.disabled = true;
+                });
+                
+                if (isCorrect) {
+                    button.classList.add('correct');
+                    score++;
+                } else {
+                    button.classList.add('wrong');
+                    // Highlight correct answer
+                    document.querySelector(`.bubble-option[data-correct="true"]`).classList.add('correct');
+                }
+                
+                totalAnswered++;
+                updateScore();
+                updateProgress();
+                
+                // Move to next question after delay
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    showQuestion();
+                }, 1500);
+            }
+            
+            // Update progress bar
+            function updateProgress() {
+                const progress = (totalAnswered / (currentQuestions.length * 1)) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Update score display
+            function updateScore() {
+                scoreDisplay.textContent = `Skor: ${score}/${totalAnswered}`;
+            }
+            
+            // Next button event
+            nextBtn.addEventListener('click', initQuiz);
+            
+            // Start the quiz
+            initQuiz();
+        });
+    </script>
+</body>
+</html>

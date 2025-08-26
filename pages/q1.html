@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uji Kefahaman Huruf Hijaiyah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8e44ad;
+      --secondary: #3498db;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --correct: #2ecc71;
+      --incorrect: #e74c3c;
+      --radius: 8px;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .quiz-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      font-weight: bold;
+    }
+    
+    .arabic {
+      font-family: 'Amiri', serif;
+      font-size: 2rem;
+      margin: 0 5px;
+    }
+    
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .option {
+      padding: 1rem;
+      border: 2px solid var(--light);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+    
+    .option:hover {
+      border-color: var(--secondary);
+    }
+    
+    .option.correct {
+      background-color: rgba(46, 204, 113, 0.1);
+      border-color: var(--correct);
+    }
+    
+    .option.incorrect {
+      background-color: rgba(231, 76, 60, 0.1);
+      border-color: var(--incorrect);
+    }
+    
+    .feedback {
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    .correct-feedback {
+      background-color: rgba(46, 204, 113, 0.1);
+      color: var(--correct);
+      border-left: 4px solid var(--correct);
+    }
+    
+    .incorrect-feedback {
+      background-color: rgba(231, 76, 60, 0.1);
+      color: var(--incorrect);
+      border-left: 4px solid var(--incorrect);
+    }
+    
+    .button {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 1rem;
+      display: block;
+      width: 100%;
+    }
+    
+    .button:hover {
+      background-color: var(--secondary);
+    }
+    
+    .score-display {
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+    
+    .progress-bar {
+      height: 10px;
+      background-color: var(--light);
+      border-radius: 5px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    
+    .progress {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width 0.3s;
+    }
+    
+    .result-container {
+      text-align: center;
+      display: none;
+    }
+    
+    .result-message {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .emoji {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .letter-image {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Uji Kefahaman Huruf Hijaiyah</h1>
+    <p>Pilih jawapan yang betul berdasarkan apa yang telah anda pelajari:</p>
+    
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    
+    <div id="question-container">
+      <!-- Questions will be inserted here by JavaScript -->
+    </div>
+    
+    <div class="score-display" id="score">Skor: 0/5</div>
+    
+    <button class="button" id="next-btn">Soalan Seterusnya</button>
+    
+    <div class="result-container" id="result-container">
+      <div class="emoji" id="emoji">🎉</div>
+      <div class="result-message" id="result-message"></div>
+      <button class="button" id="restart-btn">Cuba Lagi</button>
+      <a href="../index.html" class="button" style="margin-top: 1rem;">Kembali ke Laman Utama</a>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Apakah nama huruf ini: <span class='arabic'>ب</span>?",
+        options: ["Alif", "Ba", "Ta", "Tha"],
+        answer: 1,
+        explanation: "Betul! Huruf <span class='arabic'>ب</span> disebut 'Ba' seperti dalam perkataan <span class='arabic'>بَيت</span> (bait - rumah)."
+      },
+      {
+        question: "Manakah huruf yang berbunyi 'jim' seperti dalam 'jari'?",
+        options: [
+          "<span class='arabic'>ح</span>", 
+          "<span class='arabic'>ج</span>", 
+          "<span class='arabic'>خ</span>", 
+          "<span class='arabic'>ه</span>"
+        ],
+        answer: 1,
+        explanation: "Betul! Huruf <span class='arabic'>ج</span> disebut 'Jim' seperti dalam perkataan <span class='arabic'>جَمَل</span> (jamal - unta)."
+      },
+      {
+        question: "Susun mengikut turutan piramid:",
+        options: [
+          "Alif, Ba, Ta, Tha, Jim",
+          "Alif, Ba, Jim, Tha, Ta",
+          "Alif, Ta, Ba, Jim, Tha",
+          "Alif, Ba, Ta, Jim, Tha"
+        ],
+        answer: 0,
+        explanation: "Betul! Susunan piramid: Alif (1), Ba-Ta (2), Tha-Jim-Ha (3), Kha-Dal-Dhal-Ra (4), dsb."
+      },
+      {
+        question: "Manakah pasangan huruf dan bunyi yang TEPAT?",
+        options: [
+          "<span class='arabic'>ث</span> - bunyi 'sa'",
+          "<span class='arabic'>ذ</span> - bunyi 'dha' seperti 'that'",
+          "<span class='arabic'>ص</span> - bunyi 'ha'",
+          "<span class='arabic'>غ</span> - bunyi 'fa'"
+        ],
+        answer: 1,
+        explanation: "Betul! Huruf <span class='arabic'>ذ</span> disebut 'Dhal' dengan bunyi 'dha' seperti dalam perkataan <span class='arabic'>ذَهَب</span> (dhahab - emas)."
+      },
+      {
+        question: "Apakah nama huruf ini: <span class='arabic'>ظ</span>?",
+        options: ["Za", "Dha", "Tha", "Zha"],
+        answer: 3,
+        explanation: "Betul! Huruf <span class='arabic'>ظ</span> disebut 'Zha' seperti dalam perkataan <span class='arabic'>ظَهْر</span> (zahr - belakang)."
+      },
+      {
+        question: "Manakah contoh perkataan yang menggunakan huruf <span class='arabic'>ق</span>?",
+        options: [
+          "<span class='arabic'>قَلْب</span> (qalb - hati)",
+          "<span class='arabic'>كِتَاب</span> (kitab - buku)",
+          "<span class='arabic'>فَم</span> (fam - mulut)",
+          "<span class='arabic'>لَيْل</span> (layl - malam)"
+        ],
+        answer: 0,
+        explanation: "Betul! <span class='arabic'>قَلْب</span> menggunakan huruf Qaf yang berbunyi 'q' seperti 'Quran'."
+      },
+      {
+        question: "Berapakah jumlah huruf hijaiyah yang telah anda pelajari?",
+        options: ["26", "28", "30", "32"],
+        answer: 1,
+        explanation: "Betul! Terdapat 28 huruf hijaiyah dalam bahasa Arab."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    const questionContainer = document.getElementById('question-container');
+    const nextBtn = document.getElementById('next-btn');
+    const scoreDisplay = document.getElementById('score');
+    const progressBar = document.getElementById('progress');
+    const resultContainer = document.getElementById('result-container');
+    const resultMessage = document.getElementById('result-message');
+    const emoji = document.getElementById('emoji');
+    const restartBtn = document.getElementById('restart-btn');
+
+    function showQuestion() {
+      if (currentQuestion >= questions.length) {
+        showResults();
+        return;
+      }
+
+      const q = questions[currentQuestion];
+      let optionsHtml = '';
+      
+      q.options.forEach((option, index) => {
+        optionsHtml += `
+          <div class="option" data-index="${index}">
+            ${option}
+          </div>
+        `;
+      });
+
+      questionContainer.innerHTML = `
+        <div class="question">${q.question}</div>
+        <div class="options">${optionsHtml}</div>
+        <div class="feedback correct-feedback" id="correct-feedback" style="display: none;">
+          ${q.explanation}
+        </div>
+        <div class="feedback incorrect-feedback" id="incorrect-feedback" style="display: none;">
+          ${q.explanation}
+        </div>
+      `;
+
+      progressBar.style.width = `${(currentQuestion / questions.length) * 100}%`;
+
+      // Add event listeners to options
+      document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', () => {
+          if (option.classList.contains('selected')) return;
+          
+          const selectedIndex = parseInt(option.dataset.index);
+          const isCorrect = selectedIndex === q.answer;
+          
+          // Mark selected option
+          option.classList.add('selected');
+          option.classList.add(isCorrect ? 'correct' : 'incorrect');
+          
+          // Disable all options
+          document.querySelectorAll('.option').forEach(opt => {
+            opt.style.pointerEvents = 'none';
+          });
+          
+          // Show feedback
+          document.getElementById(isCorrect ? 'correct-feedback' : 'incorrect-feedback').style.display = 'block';
+          
+          // Update score
+          if (isCorrect) {
+            score++;
+            scoreDisplay.textContent = `Skor: ${score}/${questions.length}`;
+          }
+        });
+      });
+    }
+
+    function showResults() {
+      questionContainer.style.display = 'none';
+      nextBtn.style.display = 'none';
+      resultContainer.style.display = 'block';
+      
+      const percentage = Math.round((score / questions.length) * 100);
+      
+      if (percentage >= 80) {
+        emoji.textContent = '🎉';
+        resultMessage.innerHTML = `Tahniah! Anda dapat ${score} daripada ${questions.length} soalan betul!<br>Anda sangat menguasai huruf hijaiyah!`;
+      } else if (percentage >= 50) {
+        emoji.textContent = '👍';
+        resultMessage.innerHTML = `Bagus! Anda dapat ${score} daripada ${questions.length} soalan betul.<br>Teruskan latihan untuk meningkatkan kefahaman!`;
+      } else {
+        emoji.textContent = '💪';
+        resultMessage.innerHTML = `Anda dapat ${score} daripada ${questions.length} soalan betul.<br>Jangan putus asa, cuba lagi dan rujuk bahan pembelajaran!`;
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentQuestion++;
+      showQuestion();
+    });
+
+    restartBtn.addEventListener('click', () => {
+      currentQuestion = 0;
+      score = 0;
+      scoreDisplay.textContent = `Skor: ${score}/${questions.length}`;
+      questionContainer.style.display = 'block';
+      nextBtn.style.display = 'block';
+      resultContainer.style.display = 'none';
+      showQuestion();
+    });
+
+    // Start the quiz
+    showQuestion();
+  </script>
+</body>
+</html>

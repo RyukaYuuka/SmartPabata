@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uji Kefahaman: 5 Huruf dengan Fathah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8e44ad;
+      --secondary: #3498db;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --success: #2ecc71;
+      --error: #e74c3c;
+      --radius: 8px;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .site-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+    }
+    
+    .game-container {
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+    
+    .letter-display {
+      font-family: 'Amiri', serif;
+      font-size: 5rem;
+      margin: 1rem 0;
+      color: var(--primary);
+    }
+    
+    .options-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .option-btn {
+      padding: 1rem;
+      background-color: white;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .option-btn:hover {
+      background-color: var(--light);
+      transform: translateY(-3px);
+    }
+    
+    .option-btn.correct {
+      background-color: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+    
+    .option-btn.incorrect {
+      background-color: var(--error);
+      color: white;
+      border-color: var(--error);
+    }
+    
+    .feedback {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border-radius: var(--radius);
+      font-weight: bold;
+      font-size: 1.2rem;
+      min-height: 60px;
+    }
+    
+    .correct-feedback {
+      background-color: rgba(46, 204, 113, 0.2);
+      color: var(--success);
+    }
+    
+    .incorrect-feedback {
+      background-color: rgba(231, 76, 60, 0.2);
+      color: var(--error);
+    }
+    
+    .progress-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: var(--radius);
+      margin: 1rem 0;
+      height: 10px;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.4s ease;
+    }
+    
+    .button {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.7rem 1.8rem;
+      border: none;
+      border-radius: var(--radius);
+      margin: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .button:hover {
+      background-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Uji Kefahaman: 5 Huruf dengan Fathah</h1>
+    <p>Pilih bunyi yang betul untuk huruf berikut</p>
+  </header>
+
+  <main class="game-container">
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+    
+    <div class="letter-display" id="currentLetter">بَ</div>
+    
+    <div class="options-container" id="optionsContainer">
+      <!-- Options will be inserted here by JavaScript -->
+    </div>
+    
+    <div class="feedback" id="feedback">
+      Pilih bunyi yang betul untuk huruf di atas
+    </div>
+    
+    <div>
+      <button class="button" id="nextBtn" disabled>Seterusnya</button>
+      <a href="../index.html" class="button">Kembali</a>
+    </div>
+  </main>
+
+  <script>
+    const letters = [
+      { char: "بَ", sound: "ba", example: "بَيت (bait - rumah)" },
+      { char: "خَ", sound: "kha", example: "خَير (khayr - kebaikan)" },
+      { char: "دَ", sound: "da", example: "دَار (daar - rumah/lingkungan)" },
+      { char: "عَ", sound: "'a", example: "عَين ('ayn - mata)" },
+      { char: "يَ", sound: "ya", example: "يَوم (yaum - hari)" }
+    ];
+    
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedAnswer = null;
+    
+    const currentLetterEl = document.getElementById('currentLetter');
+    const optionsContainerEl = document.getElementById('optionsContainer');
+    const feedbackEl = document.getElementById('feedback');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressBar = document.getElementById('progressBar');
+    
+    // Initialize the game
+    function initGame() {
+      currentQuestion = 0;
+      score = 0;
+      showQuestion();
+    }
+    
+    // Show current question
+    function showQuestion() {
+      if (currentQuestion >= letters.length) {
+        endGame();
+        return;
+      }
+      
+      // Update progress
+      progressBar.style.width = `${(currentQuestion / letters.length) * 100}%`;
+      
+      const currentLetter = letters[currentQuestion];
+      currentLetterEl.textContent = currentLetter.char;
+      
+      // Create options (correct + 3 random wrong answers)
+      const options = [currentLetter.sound];
+      const allSounds = letters.map(l => l.sound).filter(s => s !== currentLetter.sound);
+      
+      while (options.length < 4 && allSounds.length > 0) {
+        const randomIndex = Math.floor(Math.random() * allSounds.length);
+        options.push(allSounds[randomIndex]);
+        allSounds.splice(randomIndex, 1);
+      }
+      
+      // Shuffle options
+      options.sort(() => Math.random() - 0.5);
+      
+      // Display options
+      optionsContainerEl.innerHTML = '';
+      options.forEach(option => {
+        const optionBtn = document.createElement('button');
+        optionBtn.className = 'option-btn';
+        optionBtn.textContent = option;
+        optionBtn.addEventListener('click', () => selectAnswer(option, optionBtn));
+        optionsContainerEl.appendChild(optionBtn);
+      });
+      
+      // Reset UI
+      feedbackEl.textContent = 'Pilih bunyi yang betul untuk huruf di atas';
+      feedbackEl.className = 'feedback';
+      nextBtn.disabled = true;
+      selectedAnswer = null;
+    }
+    
+    // Handle answer selection
+    function selectAnswer(answer, button) {
+      if (selectedAnswer) return;
+      
+      selectedAnswer = answer;
+      const currentLetter = letters[currentQuestion];
+      const isCorrect = answer === currentLetter.sound;
+      
+      // Mark all buttons
+      document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === currentLetter.sound) {
+          btn.classList.add('correct');
+        } else if (btn === button) {
+          btn.classList.add('incorrect');
+        }
+      });
+      
+      if (isCorrect) {
+        score++;
+        feedbackEl.textContent = `Betul! ${currentLetter.char} dibaca "${currentLetter.sound}"`;
+        feedbackEl.className = 'feedback correct-feedback';
+      } else {
+        feedbackEl.textContent = `Tidak tepat. ${currentLetter.char} dibaca "${currentLetter.sound}" (Contoh: ${currentLetter.example})`;
+        feedbackEl.className = 'feedback incorrect-feedback';
+      }
+      
+      nextBtn.disabled = false;
+    }
+    
+    // Move to next question
+    function nextQuestion() {
+      currentQuestion++;
+      showQuestion();
+    }
+    
+    // End game screen
+    function endGame() {
+      currentLetterEl.textContent = '🎉';
+      optionsContainerEl.innerHTML = '';
+      progressBar.style.width = '100%';
+      
+      feedbackEl.innerHTML = `
+        <h3>Selesai!</h3>
+        <p>Anda dapat ${score} daripada ${letters.length} soalan betul</p>
+        <p>${score >= 3 ? 'Tahniah!' : 'Cuba lagi!'}</p>
+      `;
+      feedbackEl.className = 'feedback correct-feedback';
+      
+      nextBtn.textContent = 'Main Lagi';
+      nextBtn.onclick = initGame;
+    }
+    
+    // Event listeners
+    nextBtn.addEventListener('click', nextQuestion);
+    
+    // Start the game
+    initGame();
+  </script>
+</body>
+</html>

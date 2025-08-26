@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ujian Huruf Hijaiyah dengan Harakat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8e44ad;
+      --secondary: #3498db;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --radius: 8px;
+      --correct: #2ecc71;
+      --incorrect: #e74c3c;
+      --fathah: #8e44ad;
+      --kasrah: #3498db;
+      --dammah: #e67e22;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      color: var(--dark);
+    }
+    
+    .site-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .quiz-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .question {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .question-text {
+      font-weight: bold;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: var(--dark);
+    }
+    
+    .arabic {
+      font-family: 'Amiri', serif;
+      font-size: 1.8rem;
+      direction: rtl;
+    }
+    
+    /* Pyramid Styles */
+    .pyramid-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin: 1.5rem auto;
+    }
+    
+    .pyramid-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .arabic-cell {
+      font-family: 'Amiri', serif;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+      color: var(--dark);
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      border: 1px solid #ddd;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .arabic-cell:hover {
+      transform: scale(1.1);
+      background-color: var(--primary);
+      color: white;
+      z-index: 10;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    
+    .sound-indicator {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      font-size: 0.7rem;
+      opacity: 0.7;
+    }
+    
+    /* Options Grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    @media (min-width: 768px) {
+      .options-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .option {
+      padding: 1rem;
+      background-color: var(--light);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 极.3s;
+      text-align: center;
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+    }
+    
+    .option:hover {
+      background-color: #dfe6e9;
+      transform: translateY(-2px);
+    }
+    
+    .option.selected {
+      border-color: var(--primary);
+      background-color: rgba(142, 68, 173, 0.1);
+      transform: scale(1.05);
+    }
+    
+    .option.correct {
+      border-color: var(--correct);
+      background-color: rgba(46, 204, 113, 0.1);
+    }
+    
+    .option.incorrect {
+      border: var(--incorrect);
+      background-color: rgba(231, 76, 60, 0.1);
+    }
+    
+    /* Button Styles */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .button {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      cursor: pointer;
+      box-shadow: 0 4极 8px rgba(0,0,0,0.15);
+    }
+    
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    
+    .button.secondary {
+      background: #95a5a6;
+    }
+    
+    /* Result Styles */
+    .result {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+    
+    .success {
+      background-color: rgba(46, 204, 113, 0.2);
+      color: var(--correct);
+      border-left: 4px solid var(--correct);
+    }
+    
+    .failure {
+      background-color: rgba(231, 76, 60, 0.2);
+      color: var(--incorrect);
+      border-left: 4px solid var(--incorrect);
+    }
+    
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      background-color: #eee;
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+    }
+    
+    .progress-bar {
+      height: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: var(--radius);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    /* Harakat Selector */
+    .harakat-selector {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .harakat-btn {
+      padding: 0.7rem 1.2rem;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: bold;
+      background: white;
+      color: var(--primary);
+      transition: all 0.3s;
+    }
+    
+    .harakat-btn.active {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .harakat-btn:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      padding: 1rem;
+      margin: 2rem 0;
+      border-radius: var(--radius);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .fathah-section {
+      background-color: rgba(142, 68, 173, 0.1);
+      color: var(--fathah);
+      border-left: 4px solid var(--fathah);
+    }
+    
+    .kasrah-section {
+      background-color: rgba(52, 152, 219, 0.1);
+      color: var(--kasrah);
+      border-left: 4px solid var(--kasrah);
+    }
+    
+    .dammah-section {
+      background-color: rgba(230, 126, 34, 0.1);
+      color: var(--dammah);
+      border-left: 4px solid var(--dammah);
+    }
+    
+    .play-instruction {
+      text-align: center;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--dark);
+    }
+    
+    /* Hidden sections */
+    .harakat-section {
+      display: none;
+    }
+    
+    .harakat-section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Ujian Huruf Hijaiyah dengan Harakat</h1>
+    <p class="tagline">Uji kefahaman kombinasi huruf dengan Fathah, Kasrah, dan Dammah</p>
+  </header>
+
+  <main class="main-content">
+    <div class="quiz-container">
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      
+      <!-- Harakat Selector -->
+      <div class="harakat-selector">
+        <button class="harakat-btn active" onclick="showHarakatSection('fathah')">Fathah (ـَ)</button>
+        <button class="harakat-btn" onclick="showHarakatSection('kasrah')">Kasrah (ـِ)</button>
+        <button class="harakat-btn" onclick="showHarakatSection('dammah')">Dammah (ـُ)</button>
+      </div>
+      
+      <div class="play-instruction">Klik pada piramid untuk mendengar bunyi huruf</div>
+      
+      <!-- Fathah Section -->
+      <div class="harakat-section active" id="fathah-section">
+        <div class="section-header fathah-section">
+          Bahagian 1: Fathah (ـَ)
+        </div>
+        
+        <!-- Question 1: Identify the sound -->
+        <div class="question" id="q1-fathah">
+          <div class="question-text">1. Apakah bunyi yang betul untuk huruf berikut?</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بَا<span class="sound-indicator">🔊</span></div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="ba">ba</div>
+            <div class="option" data-value="bā">bā</div>
+            <div class="option" data-value="bi">bi</div>
+            <div class="option" data-value="bī">bī</div>
+            <div class="option" data-value="bu">bu</div>
+            <div class="option" data-value="bū">bū</div>
+          </div>
+        </div>
+        
+        <!-- Question 2: Identify the letter -->
+        <div class="question" id="q2-fathah">
+          <div class="question-text">2. Pilih huruf yang menghasilkan bunyi "tā"</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بَا<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell" data-letter="ta">تَا<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell" data-letter="za">زَا<span class="sound-indicator">🔊</极></div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="ba">بَا</div>
+            <div class="option" data-value="ta">تَا</div>
+            <div class="option" data-value="za">زَا</div>
+            <div class="option" data-value="sa">سَا</div>
+            <div class="option" data-value="da">دَا</div>
+            <div class="option" data-value="mim">مَا</div>
+          </div>
+        </div>
+        
+        <!-- Question 3: Complete the word -->
+        <div class="question" id="q3-fathah">
+          <div class="question-text">3. Lengkapkan perkataan "بَاب" (pintu) dengan memilih huruf yang betul</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بَ<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell">?</div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="alif">ا</div>
+            <div class="option" data-value="ba">ب</div>
+            <div class="option" data-value="ta">ت</div>
+            <div class="option" data-value="ya">ي</div>
+            <div class="option" data-value="waw">و</div>
+            <div class="option" data-value="mim">م</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Kasrah Section -->
+      <div class="harakat-section" id="kasrah-section">
+        <div class="section-header kasrah-section">
+          Bahagian 2: Kasrah (ـِ)
+        </div>
+        
+        <!-- Question 1: Identify the sound -->
+        <div class="question" id="q1-kasrah">
+          <div class="question-text">1. Apakah bunyi yang betul untuk huruf berikut?</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بِي<span class="sound-indicator">🔊</span></div>
+            </div>
+          </div>
+            <div class="options-grid">
+            <div class="option" data-value="ba">ba</div>
+            <div class="option" data-value="bā">bā</div>
+            <div class="option" data-value="bi">bi</div>
+            <div class="option" data-value="bī">bī</div>
+            <div class="option" data-value="bu">bu</div>
+            <div class="option" data-value="bū">bū</div>
+          </div>
+        </div>
+        
+        <!-- Question 2: Identify the letter -->
+        <div class="question" id="q2-kasrah">
+          <div class="question-text">2. Pilih huruf yang menghasilkan bunyi "tī"</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بِي<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell" data-letter="ta">تِي<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell" data-letter="za">زِي<span class="sound-indicator">🔊</span></div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="ba">بِي</div>
+            <div class="option" data-value="ta">تِي</div>
+            <div class="option" data-value="za">زِي</div>
+            <div class="option" data-value="sa">سِي</div>
+            <div class="option" data-value="da">دِي</div>
+            <div class="option" data-value="mim">مِي</div>
+          </div>
+        </div>
+        
+        <!-- Question 3: Complete the word -->
+        <div class="question" id="q3-kasrah">
+          <div class="question-text">3. Lengkapkan perkataan "بِيت" (rumah) dengan memilih huruf yang betul</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بِ<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell">?</div>
+              <div class="arabic-cell" data-letter="ta">ت<span class="sound-indicator">🔊</span></div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="alif">ا</div>
+            <div class="option" data-value="ba">ب</div>
+            <div class="option" data-value="ta">ت</div>
+            <div class="option" data-value="ya">ي</div>
+            <div class="option" data-value="waw">و</div>
+            <div class="option" data-value="mim">م</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Dammah Section -->
+      <div class="harakat-section" id="dammah-section">
+        <div class="section-header dammah-section">
+          Bahagian 3: Dammah (ـُ)
+        </div>
+        
+        <!-- Question 1: Identify the sound -->
+        <div class="question" id="q1-dammah">
+          <div class="question-text">1. Apakah bunyi yang betul untuk huruf berikut?</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بُو<span class="sound-indicator">🔊</span></div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="ba">ba</div>
+            <div class="option" data-value="bā">bā</div>
+            <div class="option" data-value="bi">bi</div>
+            <div class="option" data-value="bī">bī</div>
+            <div class="option" data-value="bu">bu</div>
+            <div class="option" data-value="bū">bū</div>
+          </div>
+        </div>
+        
+        <!-- Question 2: Identify the letter -->
+        <div class="question" id="q2-dammah">
+          <div class="极-text">2. Pilih huruf yang menghasilkan bunyi "tū"</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ba">بُو<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell" data-letter="ta">تُو<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell" data-letter="za">زُو<span class="sound-indicator">🔊</span></div>
+            </极>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="ba">بُو</div>
+            <div class="option" data-value="ta">تُو</div>
+            <div class="option" data-value="za">زُو</div>
+            <div class="option" data-value="sa">سُو</div>
+            <div class="option" data-value="da">دُو</div>
+            <div class="option" data-value="mim">مُو</div>
+          </div>
+        </div>
+        
+        <!-- Question 3: Complete the word -->
+        <div class="question" id="q3-dammah">
+          <div class="question-text">3. Lengkapkan perkataan "تُوت" (buah mulberi) dengan memilih huruf yang betul</div>
+          <div class="pyramid-container">
+            <div class="pyramid-row">
+              <div class="arabic-cell" data-letter="ta">تُ<span class="sound-indicator">🔊</span></div>
+              <div class="arabic-cell">?</div>
+              <div class="arabic-cell" data-letter="ta">ت<span class="sound-indicator">🔊</span></div>
+            </div>
+          </div>
+          <div class="options-grid">
+            <div class="option" data-value="alif">ا</div>
+            <div class="option" data-value="ba">ب</div>
+            <div class="option" data-value="ta">ت</div>
+            <div class="option" data-value="ya">ي</div>
+            <div class="option" data-value="waw">و</div>
+            <div class="option" data-value="mim">م</极>
+          </div>
+        </div>
+      </div>
+      
+      <div class="button-group">
+        <button class="button secondary" onclick="resetQuiz()">Set Semula</button>
+        <button class="button" id="submit-btn" onclick="submitQuiz()">Hantar Jawapan</button>
+      </div>
+      
+      <div class="result" id="result">
+        <p id="score-text"></p>
+        <p id="feedback"></p>
+      </div>
+    </div>
+  </main>
+
+  <div class="button-group">
+    <a href="../index.html" class="button">Kembali ke Laman Utama</a>
+  </div>
+
+  <footer class="site-footer">
+    <p>Dibawakan oleh Guru SK Gading-Gading</p>
+  </footer>
+
+  <!-- Audio elements for each letter combination -->
+  <audio id="ba-fathah-sound" preload="auto">
+    <source src="/audio/ba.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ta-fathah-sound" preload="auto">
+    <source src="/audio/ta.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="za-fathah-sound" preload="auto">
+    <source src="/audio/za.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="mim-fathah-sound" preload="auto">
+    <source src="/audio/ma.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="da-fathah-sound" preload="auto">
+    <source src="/audio/da.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="sa-fathah-sound" preload="auto">
+    <source src="/audio/sa.mp3" type="audio/mpeg">
+  </audio>
+  
+  <audio id="ba-kasrah-sound" preload="auto">
+    <source src="/audio/bi.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ta-kasrah-sound" preload="auto">
+    <source src="/audio/ti.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="za-kasrah-sound" preload="auto">
+    <source src="/audio/zi.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="mim-kasrah-sound" preload="auto">
+    <source src="/audio/mi.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="da-kasrah-sound" preload="auto">
+    <source src="/audio/di.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="sa-kasrah-sound" preload="auto">
+    <source src="/audio/si.mp3" type="audio/mpeg">
+  </audio>
+  
+  <audio id="ba-dammah-sound" preload="auto">
+    <source src="/audio/bu.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ta-dammah-sound" preload="auto">
+    <source src="/audio/t极.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="za-dammah-sound" preload="auto">
+    <source src="/audio/zu.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="mim-dammah-sound" preload="auto">
+    <source src="/audio/mu.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="da-dammah-sound" preload="auto">
+    <source src="/audio/du.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="sa-dammah-sound" preload="auto">
+    <source src="/audio/su.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let currentHarakat = 'fathah';
+    let userSelections = {
+      'fathah': { q1: null, q2: null, q3: null },
+      'kasrah': { q1: null, q2: null, q3: null },
+      'dammah': { q1: null, q2: null, q3: null }
+    };
+    
+    const correctAnswers = {
+      fathah: {
+        q1: 'bā',
+        q2: 'ta',
+        q3: 'ba'
+      },
+      kasrah: {
+        q1: 'bī',
+        q2: 'ta',
+        q3: 'ya'
+      },
+      dammah: {
+        q1: 'bū',
+        q2: 'ta',
+        q3: 'waw'
+      }
+    };
+    
+    // Initialize the quiz
+    function initQuiz() {
+      updateProgressBar();
+      setupOptionListeners();
+      setupSoundListeners();
+    }
+    
+    // Show the selected harakat section
+    function showHarakatSection(harakat) {
+      // Update active button
+      document.querySelectorAll('.harakat-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Hide all sections
+      document.querySelectorAll('.harakat-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show selected section
+      document.getElementById(`${harakat}-section`).classList.add('active');
+      
+      // Update current harakat
+      currentHarakat = harakat;
+      
+      updateProgressBar();
+    }
+    
+    // Set up option selection listeners
+    function setupOptionListeners() {
+      document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', function() {
+          const questionId = this.closest('.question').id;
+          const harakat = questionId.split('-')[1];
+          const qNumber = questionId.split('-')[0];
+          
+          document.querySelectorAll(`#${questionId} .option`).forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          this.classList.add('selected');
+          userSelections[harakat][qNumber] = this.getAttribute('data-value');
+          updateProgressBar();
+        });
+      });
+    }
+    
+    // Set up sound listeners for pyramid cells
+    function setupSoundListeners() {
+      document.querySelectorAll('.arabic-cell').forEach(cell => {
+        cell.addEventListener('click', function() {
+          const letter = this.getAttribute('data-letter');
+          const harakat = this.closest('.harakat-section').id.split('-')[0];
+          playSound(letter, harakat);
+        });
+      });
+    }
+    
+    // Function to play sound
+    function playSound(letter, harakat) {
+      const soundId = `${letter}-${harakat}-sound`;
+      const audioElement = document.getElementById(soundId);
+      
+      if (audioElement) {
+        // Reset audio to start and play
+        audioElement.currentTime = 0;
+        audioElement.play().catch(error => {
+          console.log("Audio play failed:", error);
+        });
+      } else {
+        console.warn(`Audio element not found: ${soundId}`);
+      }
+    }
+    
+    // Reset user selections
+    function resetSelections() {
+      userSelections = {
+        'fathah': { q1: null, q2: null, q3: null },
+        'kasrah': { q1: null, q2: null, q3: null },
+        'dammah': { q1: null, q2: null, q3: null }
+      };
+      
+      document.querySelectorAll('.option').forEach(option => {
+        option.classList.remove('selected', 'correct', 'incorrect');
+      });
+      
+      document.getElementById('result').style.display = 'none';
+      
+      updateProgressBar();
+    }
+    
+    // Update progress bar
+    function updateProgressBar() {
+      let answered = 0;
+      const total = 9; // 3 questions per section × 3 sections
+      
+      // Count answered questions across all sections
+      for (const harakat in userSelections) {
+        for (const question in userSelections[harakat]) {
+          if (userSelections[harakat][question] !== null) {
+            answered++;
+          }
+        }
+      }
+      
+      const percentage = (answered / total) * 100;
+      document.getElementById('progress-bar').style.width = percentage + '%';
+    }
+    
+    // Submit the quiz
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 9;
+      
+      // Check answers for all sections
+      for (const harakat in userSelections) {
+        for (const question in userSelections[harakat]) {
+          const questionId = `${question}-${harakat}`;
+          const userAnswer = userSelections[harakat][question];
+          const correctAnswer = correctAnswers[harakat][question];
+          
+          if (userAnswer === correctAnswer) {
+            score++;
+            if (userAnswer) {
+              document.querySelector(`#${questionId} .option[data-value="${userAnswer}"]`).classList.add('correct');
+            }
+          } else if (userAnswer) {
+            document.querySelector(`#${questionId} .option[data-value="${userAnswer}"]`).classList.add('incorrect');
+            document.querySelector(`#${questionId} .option[data-value="${correctAnswer}"]`).classList.add('correct');
+          }
+        }
+      }
+      
+      // Show results
+      const percentage = Math.round((score / totalQuestions) * 100);
+      const resultDiv = document.getElementById('result');
+      const scoreText = document.getElementById('score-text');
+      const feedbackText = document.getElementById('feedback');
+      
+      resultDiv.style.display = 'block';
+      scoreText.textContent = `Markah Anda: ${score}/${totalQuestions} (${percentage}%)`;
+      
+      if (percentage >= 80) {
+        resultDiv.className = 'result success';
+        feedbackText.textContent = 'Tahniah! Anda sangat memahami kombinasi huruf dengan harakat.';
+      } else if (percentage >= 50) {
+        resultDiv.className = 'result success';
+        feedbackText.textContent = 'Baik! Anda memahami kebanyakan konsep huruf dengan harakat.';
+      } else {
+        resultDiv.className = 'result failure';
+        feedbackText.textContent = 'Anda perlu mengulangi pelajaran harakat. Jangan putus asa!';
+      }
+      
+      // Scroll to results
+      resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Reset the quiz
+    function resetQuiz() {
+      resetSelections();
+    }
+    
+    // Initialize the quiz when page loads
+    window.onload = initQuiz;
+  </script>
+</body>
+</html>
