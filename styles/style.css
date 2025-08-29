@@ -1,13 +1,16 @@
 /* ===== GLOBAL STYLES ===== */
 :root {
-  /* Color Palette */
-  --primary: #2c3e50;       /* Dark blue for headers */
-  --secondary: #3498db;     /* Bright blue for buttons */
-  --accent: #e74c3c;        /* Red for accents */
-  --light: #ecf0f1;         /* Light gray for backgrounds */
-  --dark: #2c3e50;          /* Dark text */
-  --success: #27ae60;       /* Green for correct answers */
-  --error: #e74c3c;         /* Red for incorrect answers */
+  /* NEW Green Gradient Color Palette */
+  --primary: #2ecc71;       /* Vibrant green for headers */
+  --secondary: #1abc9c;     /* Teal green for buttons */
+  --accent: #f1c40f;        /* Sunny yellow for accents */
+  --light: #f8f9fa;         /* Very light gray for backgrounds */
+  --dark: #2c3e50;          /* Dark blue-green for text */
+  --success: #27ae60;       /* Forest green for correct answers */
+  --error: #e74c3c;         /* Soft red for incorrect answers */
+  --warning: #f39c12;       /* Orange for warnings */
+  --green-light: #a3cb38;   /* Lime green for variety */
+  --green-dark: #16a085;    /* Dark teal for depth */
   
   /* Typography */
   --font-arabic: 'Amiri', serif;
@@ -43,13 +46,13 @@ body {
   display: flex;
   flex-direction: column;
   background: 
-    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+    linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
     url('../img/Widget\ No_\ 2\ __\ victoria_nsy.jpg') center/cover fixed no-repeat;
 }
 
 /* ===== HEADER STYLES ===== */
 .site-header {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--green-dark) 100%);
   color: white;
   padding: var(--space-xl);
   text-align: center;
@@ -90,7 +93,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow);
-  border: 1px solid #eee;
+  border-left: 4px solid var(--secondary);
 }
 
 .theme-card:hover {
@@ -102,7 +105,7 @@ body {
   font-family: var(--font-arabic);
   font-size: 3rem;
   margin-bottom: var(--space-md);
-  color: var(--secondary);
+  color: var(--green-dark);
 }
 
 /* ===== BUTTON STYLES ===== */
@@ -130,14 +133,14 @@ body {
 }
 
 .button:hover {
-  background-color: #2980b9;
+  background-color: var(--green-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
 
 /* ===== FOOTER STYLES ===== */
 .site-footer {
-  background-color: var(--dark);
+  background: linear-gradient(135deg, var(--dark) 0%, var(--green-dark) 100%);
   color: white;
   text-align: center;
   padding: var(--space-md);
@@ -220,7 +223,6 @@ body {
 .mt-md { margin-top: var(--space-md); }
 .mt-lg { margin-top: var(--space-lg); }
 
-
 /* ===== FLIP CARD STYLES FOR ALL THEMES ===== */
 .card-container {
   display: grid;
@@ -266,9 +268,9 @@ body {
 }
 
 .flip-card-front {
-  background-color: var(--light);
+  background-color: white;
   color: var(--dark);
-  border: 1px solid #ddd;
+  border: 2px solid var(--secondary);
 }
 
 .flip-card-back {
@@ -295,7 +297,7 @@ body {
 
 /* ===== HEADER STYLES ===== */
 .site-header {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--green-dark) 100%);
   color: white;
   padding: var(--space-xl);
   text-align: center;
@@ -315,7 +317,7 @@ body {
 }
 
 .btn-group:hover {
-  background-color: #2980b9;
+  background-color: var(--green-dark);
   transform: translateY(-2px);
 }
 
@@ -376,10 +378,9 @@ body {
 
   .arabic-text,
   .arabic-letter {
-    font-size: 3.5rem;   /* slightly smaller but still readable */
-    line-height: 2;      /* extra spacing so harakat don’t overlap */
+    font-size: 3.5rem;
+    line-height: 2;
   }
-
 
   .flip-card-back {
     font-size: 1rem;
@@ -389,34 +390,41 @@ body {
 /* ===== THEME-SPECIFIC HEADER COLORS ===== */
 /* Theme 1: Huruf Tunggal */
 .tema1 .site-header {
-  background: linear-gradient(135deg, #b069f7 0%, #3498db 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 }
 
 /* Theme 2: Huruf Berbaris */
 .tema2 .site-header {
-  background: linear-gradient(135deg, #a57dea 0%, #2ecc71 100%);
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--success) 100%);
 }
 
 /* Theme 3: Huruf Bersambung */
 .tema3 .site-header {
-  background: linear-gradient(135deg, #e9c974 0%, #9b59b6 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
 }
 
 /* Theme 4: Perbezaan Bacaan */
 .tema4 .site-header {
-  background: linear-gradient(135deg, #ef9a9a 0%, #e74c3c 100%);
+  background: linear-gradient(135deg, var(--warning) 0%, var(--green-light) 100%);
 }
 
 /* ===== FLIP CARD BACK COLORS (DIFFERENT FROM HEADERS) ===== */
-.tema1 .flip-card-back { background-color: #3498db; }
-.tema2 .flip-card-back { background-color: #2ecc71; }
-.tema3 .flip-card-back { background-color: #9b59b6; }
-.tema4 .flip-card-back { background-color: #e74c3c; }
-
+.tema1 .flip-card-back { 
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+.tema2 .flip-card-back { 
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--success) 100%);
+}
+.tema3 .flip-card-back { 
+  background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
+}
+.tema4 .flip-card-back { 
+  background: linear-gradient(135deg, var(--warning) 0%, var(--green-light) 100%);
+}
 
 /* ===== FOOTER STYLES ===== */
 .site-footer {
-  background-color: var(--dark);
+  background: linear-gradient(135deg, var(--dark) 0%, var(--green-dark) 100%);
   color: white;
   text-align: center;
   padding: var(--space-md);
@@ -430,56 +438,101 @@ body {
 }
 
 /* Additional styles for Tema 5 preview card */
-    .theme-card.tema5 {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .theme-card.tema5::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(142, 68, 173, 0.8), rgba(52, 152, 219, 0.8));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .theme-card.tema5:hover::before {
-      opacity: 1;
-    }
-    
-    .theme-card.tema5 .theme-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-    
-    .mini-pyramid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-    
-    .mini-pyramid-row {
-      display: flex;
-      gap: 4px;
-    }
-    
-    .mini-triangle {
-      width: 12px;
-      height: 12px;
-      background-color: white;
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      transition: all 0.3s;
-    }
-    
-    .theme-card.tema5:hover .mini-triangle {
-      transform: scale(1.3);
-      background-color: #f1c40f;
-    }
+.theme-card.tema5 {
+  position: relative;
+  overflow: hidden;
+}
 
+.theme-card.tema5::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(22, 160, 133, 0.8), rgba(46, 204, 113, 0.8));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.theme-card.tema5:hover::before {
+  opacity: 1;
+}
+
+.theme-card.tema5 .theme-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.mini-pyramid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.mini-pyramid-row {
+  display: flex;
+  gap: 4px;
+}
+
+.mini-triangle {
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transition: all 0.3s;
+}
+
+.theme-card.tema5:hover .mini-triangle {
+  transform: scale(1.3);
+  background-color: var(--accent);
+}
+
+/* ===== ADDED ANIMATIONS FOR EXTRA ENGAGEMENT ===== */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.theme-card:hover {
+  animation: pulse 0.5s ease-in-out;
+}
+
+/* ===== LEAF DECORATIONS ===== */
+.leaf-decoration {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232ecc71'%3E%3Cpath d='M17 8C8 10 5.9 16.8 3 19c-1.4-3.8 1.4-9 10-11 0 0-2.6 4-3 7-0.2 2.2 1 4 3 4s3.2-1.8 3-4c-0.3-3-3-7-3-7 8.6 2 11.4 7.2 10 11-2.9-2.2-5-9-13-11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.leaf-1 {
+  top: 10%;
+  left: 5%;
+  transform: rotate(25deg);
+}
+
+.leaf-2 {
+  top: 15%;
+  right: 5%;
+  transform: rotate(-15deg);
+}
+
+.leaf-3 {
+  bottom: 10%;
+  left: 8%;
+  transform: rotate(-30deg);
+}
+
+.leaf-4 {
+  bottom: 15%;
+  right: 7%;
+  transform: rotate(20deg);
+}
