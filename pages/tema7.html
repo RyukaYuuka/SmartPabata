@@ -66,7 +66,7 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
       margin: 2rem auto;
-      max-width: 1200px;
+      max-width: 1400px;
     }
     
     .pyramid-row {
@@ -112,6 +112,7 @@
       display: flex;
       justify-content: center;
       gap: 1rem;
+      flex-wrap: wrap;
     }
     
     .harakat-btn {
@@ -121,6 +122,11 @@
       cursor: pointer;
       font-weight: bold;
       background-color: #e0e0e0;
+      transition: all 0.3s;
+    }
+    
+    .harakat-btn:hover {
+      transform: translateY(-2px);
     }
     
     .harakat-btn.active {
@@ -159,6 +165,22 @@
       font-size: 0.7rem;
       opacity: 0.7;
     }
+
+    .site-footer {
+  background: linear-gradient(135deg, var(--dark) 0%, var(--green-dark) 100%);
+  color: rgb(4, 3, 3);
+  text-align: center;
+  padding: var(--space-md);
+  margin-top: auto;
+}
+
+.credit-link {
+  color: var(--secondary);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+    
     
     @media (max-width: 768px) {
       .pyramids-container {
@@ -181,7 +203,7 @@
 <body class="tema7">
   <header class="site-header">
     <h1>Tema 5: Piramid Huruf Bersambung</h1>
-    <p class="tagline">Belajar Huruf Ba, Ta, Za, Mim, Da dan Sa dengan Alif, Ya, Waw</p>
+    <p class="tagline">Belajar Huruf Bersambung dengan Alif, Ya, Waw</p>
   </header>
 
   <main class="main-content">
@@ -240,31 +262,103 @@
         </div>
       </div>
       
-      <!-- Pyramid 3: Za (ز) -->
+      <!-- Pyramid 3: So (ث) -->
       <div class="letter-pyramid">
-        <div class="pyramid-title" id="za-title">زَا</div>
-        <div class="pyramid-subtitle">Huruf Za Bersambung</div>
+        <div class="pyramid-title" id="so-title">ثَا</div>
+        <div class="pyramid-subtitle">Huruf So Bersambung</div>
         <div class="pyramid-structure">
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="za">زَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="so">ثَا<span class="sound-indicator">🔊</span></div>
           </div>
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="za">زَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="za">زَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="so">ثَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="so">ثَا<span class="sound-indicator">🔊</span></div>
           </div>
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="za">زَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="za">زَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="za">زَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="so">ثَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="so">ثَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="so">ثَا<span class="sound-indicator">🔊</span></div>
           </div>
         </div>
         <div class="letter-info">
-          <p><strong>Bunyi:</strong> <span id="za-sound">zā</span> (panjang)</p>
-          <p><strong>Contoh:</strong> <span id="za-word">زَاوِيَة</span> (<span id="za-meaning">zāwiyah - sudut</span>)</p>
+          <p><strong>Bunyi:</strong> <span id="so-sound">sā</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="so-word">ثَابِت</span> (<span id="so-meaning">sābit - tetap</span>)</p>
         </div>
       </div>
       
-      <!-- Pyramid 4: Mim (م) -->
+      <!-- Pyramid 4: Do (د) -->
+      <div class="letter-pyramid">
+        <div class="pyramid-title" id="do-title">دَا</div>
+        <div class="pyramid-subtitle">Huruf Do Bersambung</div>
+        <div class="pyramid-structure">
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="do">دَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="do">دَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="do">دَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="do">دَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="do">دَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="do">دَا<span class="sound-indicator">🔊</span></div>
+          </div>
+        </div>
+        <div class="letter-info">
+          <p><strong>Bunyi:</strong> <span id="do-sound">dā</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="do-word">دَار</span> (<span id="do-meaning">dār - rumah</span>)</p>
+        </div>
+      </div>
+      
+      <!-- Pyramid 5: To (ط) -->
+      <div class="letter-pyramid">
+        <div class="pyramid-title" id="to-title">طَا</div>
+        <div class="pyramid-subtitle">Huruf To Bersambung</div>
+        <div class="pyramid-structure">
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="to">طَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="to">طَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="to">طَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="to">طَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="to">طَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="to">طَا<span class="sound-indicator">🔊</span></div>
+          </div>
+        </div>
+        <div class="letter-info">
+          <p><strong>Bunyi:</strong> <span id="to-sound">tā</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="to-word">طَالِب</span> (<span id="to-meaning">tālib - pelajar</span>)</p>
+        </div>
+      </div>
+      
+      <!-- Pyramid 6: Zo (ظ) -->
+      <div class="letter-pyramid">
+        <div class="pyramid-title" id="zo-title">ظَا</div>
+        <div class="pyramid-subtitle">Huruf Zo Bersambung</div>
+        <div class="pyramid-structure">
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="zo">ظَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="zo">ظَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="zo">ظَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="zo">ظَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="zo">ظَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="zo">ظَا<span class="sound-indicator">🔊</span></div>
+          </div>
+        </div>
+        <div class="letter-info">
+          <p><strong>Bunyi:</strong> <span id="zo-sound">zā</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="zo-word">ظَاهِر</span> (<span id="zo-meaning">zāhir - nyata</span>)</p>
+        </div>
+      </div>
+      
+      <!-- Pyramid 7: Mim (م) -->
       <div class="letter-pyramid">
         <div class="pyramid-title" id="mim-title">مَا</div>
         <div class="pyramid-subtitle">Huruf Mim Bersambung</div>
@@ -288,51 +382,99 @@
         </div>
       </div>
       
-      <!-- Pyramid 5: Da (د) -->
+      <!-- Pyramid 8: Nun (ن) -->
       <div class="letter-pyramid">
-        <div class="pyramid-title" id="da-title">دَا</div>
-        <div class="pyramid-subtitle">Huruf Da Bersambung</div>
+        <div class="pyramid-title" id="nun-title">نَا</div>
+        <div class="pyramid-subtitle">Huruf Nun Bersambung</div>
         <div class="pyramid-structure">
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="da">دَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="nun">نَا<span class="sound-indicator">🔊</span></div>
           </div>
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="da">دَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="da">دَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="nun">نَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="nun">نَا<span class="sound-indicator">🔊</span></div>
           </div>
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="da">دَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="da">دَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="da">دَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="nun">نَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="nun">نَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="nun">نَا<span class="sound-indicator">🔊</span></div>
           </div>
         </div>
         <div class="letter-info">
-          <p><strong>Bunyi:</strong> <span id="da-sound">dā</span> (panjang)</p>
-          <p><strong>Contoh:</strong> <span id="da-word">دَار</span> (<span id="da-meaning">dār - rumah</span>)</p>
+          <p><strong>Bunyi:</strong> <span id="nun-sound">nā</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="nun-word">نَار</span> (<span id="nun-meaning">nār - api</span>)</p>
         </div>
       </div>
       
-      <!-- Pyramid 6: Sa (س) -->
+      <!-- Pyramid 9: Waw (و) -->
       <div class="letter-pyramid">
-        <div class="pyramid-title" id="sa-title">سَا</div>
-        <div class="pyramid-subtitle">Huruf Sa Bersambung</div>
+        <div class="pyramid-title" id="waw-title">وَاو</div>
+        <div class="pyramid-subtitle">Huruf Waw Bersambung</div>
         <div class="pyramid-structure">
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="sa">سَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="waw">وَاو<span class="sound-indicator">🔊</span></div>
           </div>
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="sa">سَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="sa">سَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="waw">وَاو<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="waw">وَاو<span class="sound-indicator">🔊</span></div>
           </div>
           <div class="pyramid-row">
-            <div class="arabic-cell" data-letter="sa">سَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="sa">سَا<span class="sound-indicator">🔊</span></div>
-            <div class="arabic-cell" data-letter="sa">سَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="waw">وَاو<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="waw">وَاو<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="waw">وَاو<span class="sound-indicator">🔊</span></div>
           </div>
         </div>
         <div class="letter-info">
-          <p><strong>Bunyi:</strong> <span id="sa-sound">sā</span> (panjang)</p>
-          <p><strong>Contoh:</strong> <span id="sa-word">سَاعَة</span> (<span id="sa-meaning">sā'ah - jam/waktu</span>)</p>
+          <p><strong>Bunyi:</strong> <span id="waw-sound">wāw</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="waw-word">وَوْصَل</span> (<span id="waw-meaning">wawṣal - sampai</span>)</p>
+        </div>
+      </div>
+      
+      <!-- Pyramid 10: Ha (ه) -->
+      <div class="letter-pyramid">
+        <div class="pyramid-title" id="ha-title">هَا</div>
+        <div class="pyramid-subtitle">Huruf Ha Bersambung</div>
+        <div class="pyramid-structure">
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="ha">هَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="ha">هَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="ha">هَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="ha">هَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="ha">هَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="ha">هَا<span class="sound-indicator">🔊</span></div>
+          </div>
+        </div>
+        <div class="letter-info">
+          <p><strong>Bunyi:</strong> <span id="ha-sound">hā</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="ha-word">هَادِئ</span> (<span id="ha-meaning">hādi' - tenang</span>)</p>
+        </div>
+      </div>
+      
+      <!-- Pyramid 11: Ya (ي) -->
+      <div class="letter-pyramid">
+        <div class="pyramid-title" id="ya-title">يَا</div>
+        <div class="pyramid-subtitle">Huruf Ya Bersambung</div>
+        <div class="pyramid-structure">
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="ya">يَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="ya">يَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="ya">يَا<span class="sound-indicator">🔊</span></div>
+          </div>
+          <div class="pyramid-row">
+            <div class="arabic-cell" data-letter="ya">يَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="ya">يَا<span class="sound-indicator">🔊</span></div>
+            <div class="arabic-cell" data-letter="ya">يَا<span class="sound-indicator">🔊</span></div>
+          </div>
+        </div>
+        <div class="letter-info">
+          <p><strong>Bunyi:</strong> <span id="ya-sound">yā</span> (panjang)</p>
+          <p><strong>Contoh:</strong> <span id="ya-word">يَاقُوت</span> (<span id="ya-meaning">yāqūt - delima</span>)</p>
         </div>
       </div>
     </div>
@@ -344,7 +486,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Guru SK Gading-Gading</a></p>
+    <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Sabarina Binti Yusof</a></p>
   </footer>
 
   <!-- Audio elements for each letter combination -->
@@ -354,17 +496,32 @@
   <audio id="ta-fathah-sound" preload="auto">
     <source src="/audio/ta.mp3" type="audio/mpeg">
   </audio>
-  <audio id="za-fathah-sound" preload="auto">
-    <source src="/audio/za.mp3" type="audio/mpeg">
+  <audio id="so-fathah-sound" preload="auto">
+    <source src="/audio/so.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="do-fathah-sound" preload="auto">
+    <source src="/audio/da.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="to-fathah-sound" preload="auto">
+    <source src="/audio/to.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="zo-fathah-sound" preload="auto">
+    <source src="/audio/zo.mp3" type="audio/mpeg">
   </audio>
   <audio id="mim-fathah-sound" preload="auto">
     <source src="/audio/ma.mp3" type="audio/mpeg">
   </audio>
-  <audio id="da-fathah-sound" preload="auto">
-    <source src="/audio/da.mp3" type="audio/mpeg">
+  <audio id="nun-fathah-sound" preload="auto">
+    <source src="/audio/na.mp3" type="audio/mpeg">
   </audio>
-  <audio id="sa-fathah-sound" preload="auto">
-    <source src="/audio/sa.mp3" type="audio/mpeg">
+  <audio id="waw-fathah-sound" preload="auto">
+    <source src="/audio/wa.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ha-fathah-sound" preload="auto">
+    <source src="/audio/ha.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ya-fathah-sound" preload="auto">
+    <source src="/audio/ya.mp3" type="audio/mpeg">
   </audio>
   
   <audio id="ba-kasrah-sound" preload="auto">
@@ -373,17 +530,32 @@
   <audio id="ta-kasrah-sound" preload="auto">
     <source src="/audio/ti.mp3" type="audio/mpeg">
   </audio>
-  <audio id="za-kasrah-sound" preload="auto">
+  <audio id="so-kasrah-sound" preload="auto">
+    <source src="/audio/si.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="do-kasrah-sound" preload="auto">
+    <source src="/audio/di.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="to-kasrah-sound" preload="auto">
+    <source src="/audio/ti.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="zo-kasrah-sound" preload="auto">
     <source src="/audio/zi.mp3" type="audio/mpeg">
   </audio>
   <audio id="mim-kasrah-sound" preload="auto">
     <source src="/audio/mi.mp3" type="audio/mpeg">
   </audio>
-  <audio id="da-kasrah-sound" preload="auto">
-    <source src="/audio/di.mp3" type="audio/mpeg">
+  <audio id="nun-kasrah-sound" preload="auto">
+    <source src="/audio/ni.mp3" type="audio/mpeg">
   </audio>
-  <audio id="sa-kasrah-sound" preload="auto">
-    <source src="/audio/si.mp3" type="audio/mpeg">
+  <audio id="waw-kasrah-sound" preload="auto">
+    <source src="/audio/wi.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ha-kasrah-sound" preload="auto">
+    <source src="/audio/hi.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ya-kasrah-sound" preload="auto">
+    <source src="/audio/yi.mp3" type="audio/mpeg">
   </audio>
   
   <audio id="ba-dammah-sound" preload="auto">
@@ -392,17 +564,32 @@
   <audio id="ta-dammah-sound" preload="auto">
     <source src="/audio/tu.mp3" type="audio/mpeg">
   </audio>
-  <audio id="za-dammah-sound" preload="auto">
+  <audio id="so-dammah-sound" preload="auto">
+    <source src="/audio/su.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="do-dammah-sound" preload="auto">
+    <source src="/audio/du.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="to-dammah-sound" preload="auto">
+    <source src="/audio/tu.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="zo-dammah-sound" preload="auto">
     <source src="/audio/zu.mp3" type="audio/mpeg">
   </audio>
   <audio id="mim-dammah-sound" preload="auto">
     <source src="/audio/mu.mp3" type="audio/mpeg">
   </audio>
-  <audio id="da-dammah-sound" preload="auto">
-    <source src="/audio/du.mp3" type="audio/mpeg">
+  <audio id="nun-dammah-sound" preload="auto">
+    <source src="/audio/nu.mp3" type="audio/mpeg">
   </audio>
-  <audio id="sa-dammah-sound" preload="auto">
-    <source src="/audio/su.mp3" type="audio/mpeg">
+  <audio id="waw-dammah-sound" preload="auto">
+    <source src="/audio/wu.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ha-dammah-sound" preload="auto">
+    <source src="/audio/hu.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="ya-dammah-sound" preload="auto">
+    <source src="/audio/yu.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -452,31 +639,46 @@
       fathah: {
         ba: { letter: 'بَا', sound: 'bā', word: 'بَاب', meaning: 'bāb - pintu' },
         ta: { letter: 'تَا', sound: 'tā', word: 'تَاج', meaning: 'tāj - mahkota' },
-        za: { letter: 'زَا', sound: 'zā', word: 'زَاوِيَة', meaning: 'zāwiyah - sudut' },
+        so: { letter: 'ثَا', sound: 'sā', word: 'ثَابِت', meaning: 'sābit - tetap' },
+        do: { letter: 'دَا', sound: 'dā', word: 'دَار', meaning: "dār - rumah" },
+        to: { letter: 'طَا', sound: 'tā', word: 'طَالِب', meaning: 'tālib - pelajar' },
+        zo: { letter: 'ظَا', sound: 'zā', word: 'ظَاهِر', meaning: 'zāhir - nyata' },
         mim: { letter: 'مَا', sound: 'mā', word: 'مَاء', meaning: "mā' - air" },
-        da: { letter: 'دَا', sound: 'dā', word: 'دَار', meaning: "dār - rumah" },
-        sa: { letter: 'سَا', sound: 'sā', word: 'سَاعَة', meaning: "sā'ah - jam/waktu" }
+        nun: { letter: 'نَا', sound: 'nā', word: 'نَار', meaning: 'nār - api' },
+        waw: { letter: 'وَاو', sound: 'wāw', word: 'وَوْصَل', meaning: 'wawṣal - sampai' },
+        ha: { letter: 'هَا', sound: 'hā', word: 'هَادِئ', meaning: "hādi' - tenang" },
+        ya: { letter: 'يَا', sound: 'yā', word: 'يَاقُوت', meaning: 'yāqūt - delima' }
       },
       kasrah: {
         ba: { letter: 'بِي', sound: 'bī', word: 'بِيت', meaning: 'bīt - rumah' },
         ta: { letter: 'تِي', sound: 'tī', word: 'تِين', meaning: 'tīn - buah tin' },
-        za: { letter: 'زِي', sound: 'zī', word: 'زِينَة', meaning: 'zīnah - hiasan' },
+        so: { letter: 'ثِي', sound: 'sī', word: 'ثِيَاب', meaning: 'siyāb - pakaian' },
+        do: { letter: 'دِي', sound: 'dī', word: 'دِين', meaning: 'dīn - agama' },
+        to: { letter: 'طِي', sound: 'tī', word: 'طِير', meaning: 'tīr - burung' },
+        zo: { letter: 'ظِي', sound: 'zī', word: 'ظِل', meaning: 'zil - bayang' },
         mim: { letter: 'مِي', sound: 'mī', word: 'مِيزَان', meaning: 'mīzān - timbangan' },
-        da: { letter: 'دِي', sound: 'dī', word: 'دِين', meaning: 'dīn - agama' },
-        sa: { letter: 'سِي', sound: 'sī', word: 'سِين', meaning: 'sīn - huruf sin' }
+        nun: { letter: 'نِي', sound: 'nī', word: 'نِير', meaning: 'nīr - cahaya' },
+        waw: { letter: 'وِي', sound: 'wī', word: 'وِصَايَة', meaning: 'wiṣāyah - wasiat' },
+        ha: { letter: 'هِي', sound: 'hī', word: 'هِير', meaning: 'hīr - (bunyi anjing)' },
+        ya: { letter: 'يِي', sound: 'yī', word: 'يِير', meaning: 'yīr - (bunyi)' }
       },
       dammah: {
         ba: { letter: 'بُو', sound: 'bū', word: 'بُور', meaning: 'būr - (tanah) gersang' },
         ta: { letter: 'تُو', sound: 'tū', word: 'تُوت', meaning: 'tūt - buah mulberi' },
-        za: { letter: 'زُو', sound: 'zū', word: 'زُور', meaning: 'zūr - palsu' },
+        so: { letter: 'ثُو', sound: 'sū', word: 'ثُوْر', meaning: 'sūr - banteng' },
+        do: { letter: 'دُو', sound: 'dū', word: 'دُولَة', meaning: 'dūlah - negara' },
+        to: { letter: 'طُو', sound: 'tū', word: 'طُور', meaning: 'tūr - gunung' },
+        zo: { letter: 'ظُو', sound: 'zū', word: 'ظُهُور', meaning: 'zuhūr - muncul' },
         mim: { letter: 'مُو', sound: 'mū', word: 'مُوسَى', meaning: 'Mūsā - Nabi Musa' },
-        da: { letter: 'دُو', sound: 'dū', word: 'دُولَة', meaning: 'dūlah - negara' },
-        sa: { letter: 'سُو', sound: 'sū', word: 'سُورَة', meaning: 'sūrah - surah' }
+        nun: { letter: 'نُو', sound: 'nū', word: 'نُور', meaning: 'nūr - cahaya' },
+        waw: { letter: 'وُو', sound: 'wū', word: 'وُجُود', meaning: 'wujūd - wujud' },
+        ha: { letter: 'هُو', sound: 'hū', word: 'هُود', meaning: 'Hūd - Nabi Hud' },
+        ya: { letter: 'يُو', sound: 'yū', word: 'يُونَان', meaning: 'Yūnān - Yunani' }
       }
     };
     
     // Update pyramids
-    const letters = ['ba', 'ta', 'za', 'mim', 'da', 'sa'];
+    const letters = ['ba', 'ta', 'so', 'do', 'to', 'zo', 'mim', 'nun', 'waw', 'ha', 'ya'];
     letters.forEach(letter => {
       const data = combinationData[type][letter];
       
