@@ -1,168 +1,758 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tema 6: Huruf Bersambung</title>
-  <link rel="stylesheet" href="../styles/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Noto Naskh Arabic', serif;
+      background: linear-gradient(to bottom, #f8f6f2, #e9e5da);
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      direction: rtl;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 25px;
+      background: linear-gradient(to right, #2c5c1f, #4a8c31);
+      color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    
+    .tagline {
+      font-size: 1.4rem;
+      opacity: 0.9;
+    }
+    
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin: 25px 0;
+      color: #2c5c1f;
+      padding: 10px;
+      border-bottom: 3px solid #2c5c1f;
+      border-top: 3px solid #2c5c1f;
+    }
+    
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .letter-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .letter-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .card-header {
+      background: #2c5c1f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .arabic {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .card-body {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-body h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #2c5c1f;
+      text-align: center;
+    }
+    
+    .card-body ul {
+      margin: 15px 0;
+      padding-right: 20px;
+    }
+    
+    .card-body li {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    
+    .examples {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8f9f5;
+      border-radius: 12px;
+      flex-grow: 1;
+    }
+    
+    .examples h4 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: #2c5c1f;
+      text-align: center;
+    }
+    
+    .example-word {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px dashed #ccc;
+      font-size: 1.2rem;
+    }
+    
+    .example-word:last-child {
+      border-bottom: none;
+    }
+    
+    .arabic-word {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+    
+    .meaning {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 15px 35px;
+      background: #2c5c1f;
+      color: white;
+      text-decoration: none;
+      border-radius: 35px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .button:hover {
+      background: #225116;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 25px;
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    .credit-link {
+      color: #2c5c1f;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    
+    .credit-link:hover {
+      color: #4a8c31;
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="../audio/background-music.mp3" type="audio/mpeg">
-  </audio>
+  <div class="container">
+    <header>
+      <h1>Tema 6: Huruf Bersambung</h1>
+      <p class="tagline">Belajar Bentuk Awal, Tengah dan Akhir</p>
+    </header>
 
-  <header class="site-header">
-    <h1>Tema 6: Huruf Bersambung</h1>
-    <p class="tagline">Belajar Bentuk Awal, Tengah dan Akhir</p>
-  </header>
-
-  <main class="main-content">
-    <div class="card-grid">
-      <!-- Ba Awal -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+    <main class="main-content">
+      <h2 class="section-title">Huruf Ba (ب)</h2>
+      <div class="card-grid">
+        <!-- Ba Awal -->
+        <div class="letter-card">
+          <div class="card-header">
             <p class="arabic">بـ</p>
             <p>BA Awal</p>
           </div>
-          <div class="flip-card-back">
+          <div class="card-body">
             <h3>BA AWAL</h3>
             <ul>
               <li>Bentuk awal huruf Ba</li>
-              <li>Contoh: بـيت (bait - rumah)</li>
-              <li>Contoh: بـاب (bab - pintu)</li>
               <li>Bersambung dengan huruf berikutnya</li>
             </ul>
+            <div class="examples">
+              <h4>Contoh Perkataan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">بَقاء</span>
+                <span class="meaning">(baqa' - kekal)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">بَيت</span>
+                <span class="meaning">(bait - rumah)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">بَاب</span>
+                <span class="meaning">(bab - pintu)</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Ba Tengah -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+        <!-- Ba Tengah -->
+        <div class="letter-card">
+          <div class="card-header">
             <p class="arabic">ـبـ</p>
             <p>BA Tengah</p>
           </div>
-          <div class="flip-card-back">
+          <div class="card-body">
             <h3>BA TENGAH</h3>
             <ul>
               <li>Bentuk tengah huruf Ba</li>
-              <li>Contoh: كـتـب (kataba - dia menulis)</li>
-              <li>Contoh: حـبـل (habl - tali)</li>
               <li>Bersambung sebelum dan sesudah</li>
             </ul>
+            <div class="examples">
+              <h4>Contoh Perkataan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">جُهد</span>
+                <span class="meaning">(juhd - usaha)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">كَتَب</span>
+                <span class="meaning">(kataba - dia menulis)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">حَبل</span>
+                <span class="meaning">(habl - tali)</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Ba Akhir -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+        <!-- Ba Akhir -->
+        <div class="letter-card">
+          <div class="card-header">
             <p class="arabic">ـب</p>
             <p>BA Akhir</p>
           </div>
-          <div class="flip-card-back">
+          <div class="card-body">
             <h3>BA AKHIR</h3>
             <ul>
               <li>Bentuk akhir huruf Ba</li>
-              <li>Contoh: كـتـب (kitab - buku)</li>
-              <li>Contoh: حـسـب (hasab - mengira)</li>
               <li>Bersambung dengan huruf sebelumnya</li>
             </ul>
+            <div class="examples">
+              <h4>Contoh Perkataan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">حَسَب</span>
+                <span class="meaning">(hasab - mengira)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">كِتاب</span>
+                <span class="meaning">(kitab - buku)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">أَثيب</span>
+                <span class="meaning">(athib - hadiah)</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Ta Awal -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+      <h2 class="section-title">Huruf Ta (ت)</h2>
+      <div class="card-grid">
+        <!-- Ta Awal -->
+        <div class="letter-card">
+          <div class="card-header">
             <p class="arabic">تـ</p>
             <p>TA Awal</p>
           </div>
-          <div class="flip-card-back">
+          <div class="card-body">
             <h3>TA AWAL</h3>
             <ul>
               <li>Bentuk awal huruf Ta</li>
-              <li>Contoh: تـمـر (tamr - kurma)</li>
-              <li>Contoh: تـاج (taj - mahkota)</li>
               <li>Bersambung dengan huruf berikutnya</li>
             </ul>
+            <div class="examples">
+              <h4>Contoh Perkataan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">تَمر</span>
+                <span class="meaning">(tamr - kurma)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">تَاج</span>
+                <span class="meaning">(taj - mahkota)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">تَجس</span>
+                <span class="meaning">(tajas - mengintai)</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Ta Tengah -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+        <!-- Ta Tengah -->
+        <div class="letter-card">
+          <div class="card-header">
             <p class="arabic">ـتـ</p>
             <p>TA Tengah</p>
           </div>
-          <div class="flip-card-back">
+          <div class="card-body">
             <h3>TA TENGAH</h3>
             <ul>
               <li>Bentuk tengah huruf Ta</li>
-              <li>Contoh: مـتـن (matn - teks)</li>
-              <li>Contoh: فـتـح (fataha - membuka)</li>
               <li>Bersambung sebelum dan sesudah</li>
             </ul>
+            <div class="examples">
+              <h4>Contoh Perkataan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">كُلية</span>
+                <span class="meaning">(kulliyah - fakulti)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">مَتن</span>
+                <span class="meaning">(matn - teks)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">فَتح</span>
+                <span class="meaning">(fataha - membuka)</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Ta Akhir -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+        <!-- Ta Akhir -->
+        <div class="letter-card">
+          <div class="card-header">
             <p class="arabic">ـت</p>
             <p>TA Akhir</p>
           </div>
-          <div class="flip-card-back">
+          <div class="card-body">
             <h3>TA AKHIR</h3>
             <ul>
               <li>Bentuk akhir huruf Ta</li>
-              <li>Contoh: سـبـت (sabt - Sabtu)</li>
-              <li>Contoh: حـفـظـت (hafiztu - aku menghafal)</li>
               <li>Bersambung dengan huruf sebelumnya</li>
             </ul>
+            <div class="examples">
+              <h4>Contoh Perkataan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">سَبت</span>
+                <span class="meaning">(sabt - Sabtu)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">حَفِظت</span>
+                <span class="meaning">(hafiztu - aku menghafal)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">شَهِدت</span>
+                <span class="meaning">(shahidt - aku menyaksikan)</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Huruf Tidak Bersambung -->
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <p class="arabic">أ</p>
-            <p>Alif Tidak Bersambung</p>
+      <h2 class="section-title">Perkataan Tambahan untuk Latihan</h2>
+        <!-- Fathah Examples -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـَ</p>
+            <p>Bacaan Fathah</p>
           </div>
-          <div class="flip-card-back">
-            <h3>HURUF TIDAK BERSAMBUNG</h3>
+          <div class="card-body">
+            <h3>Fathah (ـَ)</h3>
             <ul>
-              <li>Alif, Dal, Dhal, Ra, Zai, Waw</li>
-              <li>Tidak berubah bentuk</li>
-              <li>Contoh: د (dal), ر (ra), و (waw)</li>
-              <li>Selalu terpisah dengan huruf setelahnya</li>
+              <li>Baris di atas huruf</li>
+              <li>Bunyi pendek "a"</li>
             </ul>
+            <div class="examples">
+              <h4>Contoh:</h4>
+              <div class="example-word">
+                <span class="arabic-word">نَجَس</span>
+                <span class="meaning">(najas - kotor)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">عَمَل</span>
+                <span class="meaning">(amal - perbuatan)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">فَهم</span>
+                <span class="meaning">(faham - memahami)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">لَزم</span>
+                <span class="meaning">(lazim - perlu)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">فَعَل</span>
+                <span class="meaning">(fa'al - melakukan)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kasrah Examples -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـِ</p>
+            <p>Bacaan Kasrah</p>
+          </div>
+          <div class="card-body">
+            <h3>Kasrah (ـِ)</h3>
+            <ul>
+              <li>Baris di bawah huruf</li>
+              <li>Bunyi pendek "i"</li>
+            </ul>
+            <div class="examples">
+              <h4>Contoh:</h4>
+              <div class="example-word">
+                <span class="arabic-word">حِسن</span>
+                <span class="meaning">(husn - kebaikan)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">كِتَب</span>
+                <span class="meaning">(kitab - buku)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">فِرز</span>
+                <span class="meaning">(firz - memisahkan)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">مِلك</span>
+                <span class="meaning">(milk - harta)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">عِلم</span>
+                <span class="meaning">(ilm - ilmu)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـَ vs ـِ</p>
+            <p>Perbezaan Fathah dan Kasrah</p>
+          </div>
+          <div class="card-body">
+            <h3>Beza Fathah dan Kasrah</h3>
+            <ul>
+              <li>Fathah di atas, Kasrah di bawah</li>
+              <li>Bunyi Fathah "a", bunyi Kasrah "i"</li>
+              <li>Fathah untuk marfu', Kasrah untuk majrur</li>
+            </ul>
+            <div class="examples">
+              <h4>Perbandingan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">نَجَس vs نِجس</span>
+                <span class="meaning">(najas vs najis)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">حَسَن vs حِسن</span>
+                <span class="meaning">(hasan vs husn)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">عَمَل vs عِمَل</span>
+                <span class="meaning">(amal vs 'imal)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">خَطَب vs خِطب</span>
+                <span class="meaning">(khatab vs khitb)</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="button-group">
-      <a href="../index.html" class="button">Kembali ke Laman Utama</a>
-      <a href="../pages/q3.html" class="button">Uji Pemahaman</a>
-    </div>
-  </main>
+      <h2 class="section-title">Bacaan Dhommah</h2>
+      <div class="card-grid">
+        <!-- Dhommah Examples -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـُ</p>
+            <p>Bacaan Dhommah</p>
+          </div>
+          <div class="card-body">
+            <h3>Dhommah (ـُ)</h3>
+            <ul>
+              <li>Baris di atas huruf seperti wau kecil</li>
+              <li>Bunyi pendek "u"</li>
+              <li>Digunakan untuk marfu' dalam i'rab</li>
+            </ul>
+            <div class="examples">
+              <h4>Contoh:</h4>
+              <div class="example-word">
+                <span class="arabic-word">فُعُل</span>
+                <span class="meaning">(fu'ul - dilakukan)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">كُتِب</span>
+                <span class="meaning">(kutib - ditulis)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">فُرُوع</span>
+                <span class="meaning">(furu' - cabang)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">ضُرِب</span>
+                <span class="meaning">(durib - dipukul)</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <footer class="site-footer">
-    <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Guru SK Gading-Gading</a></p>
-  </footer>
+        <!-- More Dhommah Examples -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـُ</p>
+            <p>Lebih Banyak Dhommah</p>
+          </div>
+          <div class="card-body">
+            <h3>Contoh Lain Dhommah</h3>
+            <ul>
+              <li>Dhommah muncul di awal dan tengah perkataan</li>
+              <li>Mengubah makna berdasarkan kedudukannya</li>
+            </ul>
+            <div class="examples">
+              <h4>Contoh:</h4>
+              <div class="example-word">
+                <span class="arabic-word">حُسن</span>
+                <span class="meaning">(husn - kebaikan)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">بِمَن</span>
+                <span class="meaning">(biman - dengan siapa)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">فَهُو</span>
+                <span class="meaning">(fahuwa - maka dia)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">ضُخم</span>
+                <span class="meaning">(dukhm - besar)</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <script src="../src/script.js"></script>
+        <!-- Dhommah Practice -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـُ</p>
+            <p>Latihan Dhommah</p>
+          </div>
+          <div class="card-body">
+            <h3>Latihan Bacaan Dhommah</h3>
+            <ul>
+              <li>Latihan sebutan Dhommah yang betul</li>
+              <li>Membezakan Dhommah dan Fathah</li>
+            </ul>
+            <div class="examples">
+              <h4>Perkataan untuk Latihan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">عُمان</span>
+                <span class="meaning">(Oman - Oman)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">شُهد</span>
+                <span class="meaning">(syuhd - madu)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">فُهم</span>
+                <span class="meaning">(fuhm - difahami)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">لُزم</span>
+                <span class="meaning">(luzim - diperlukan)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Beza Bacaan Mad dan Bukan Mad</h2>
+      <div class="card-grid">
+        <!-- Mad Examples -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـا</p>
+            <p>Bacaan Mad</p>
+          </div>
+          <div class="card-body">
+            <h3>Huruf Mad (ا، و، ي)</h3>
+            <ul>
+              <li>Memanjangkan bunyi selama 2 harakat</li>
+              <li>Didahului oleh hamzah atau sukun</li>
+            </ul>
+            <div class="examples">
+              <h4>Contoh Mad:</h4>
+              <div class="example-word">
+                <span class="arabic-word">فَاعِل</span>
+                <span class="meaning">(fa'il - pelaku)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">كَاتِب</span>
+                <span class="meaning">(katib - penulis)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">حَاسِد</span>
+                <span class="meaning">(hasid - pendengki)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">جَالِس</span>
+                <span class="meaning">(jalis - orang yang duduk)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Non-Mad Examples -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">ـَ</p>
+            <p>Bacaan Bukan Mad</p>
+          </div>
+          <div class="card-body">
+            <h3>Bacaan Bukan Mad</h3>
+            <ul>
+              <li>Baris pendek tanpa pemanjangan</li>
+              <li>Bunyi pendek</li>
+            </ul>
+            <div class="examples">
+              <h4>Contoh Bukan Mad:</h4>
+              <div class="example-word">
+                <span class="arabic-word">فَعَل</span>
+                <span class="meaning">(fa'al - melakukan)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">كَتَب</span>
+                <span class="meaning">(katab - menulis)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">حَسَد</span>
+                <span class="meaning">(hasad - dengki)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">جَلَس</span>
+                <span class="meaning">(jalas - duduk)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mad vs Non-Mad Comparison -->
+        <div class="letter-card">
+          <div class="card-header">
+            <p class="arabic">Mad</p>
+            <p>Mad vs Bukan Mad</p>
+          </div>
+          <div class="card-body">
+            <h3>Perbezaan Mad dan Bukan Mad</h3>
+            <ul>
+              <li>Mad: panjangkan bunyi 2 harakat</li>
+              <li>Bukan Mad: bunyi pendek</li>
+              <li>Latihan membezakan keduanya</li>
+            </ul>
+            <div class="examples">
+              <h4>Perbandingan:</h4>
+              <div class="example-word">
+                <span class="arabic-word">فَعَل vs فَاعِل</span>
+                <span class="meaning">(pendek vs mad)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">كَتَب vs كَاتِب</span>
+                <span class="meaning">(pendek vs mad)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">حَسَد vs حَاسِد</span>
+                <span class="meaning">(pendek vs mad)</span>
+              </div>
+              <div class="example-word">
+                <span class="arabic-word">جَلَس vs جَالِس</span>
+                <span class="meaning">(pendek vs mad)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <a href="../index.html" class="button">Kembali ke Laman Utama</a>
+        <a href="../pages/q3.html" class="button">Uji Pemahaman</a>
+      </div>
+    </main>
+
+    <footer>
+      <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Sabarina Binti Yusof</a></p>
+    </footer>
+    
+  </div>
 </body>
 </html>
