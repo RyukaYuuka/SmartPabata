@@ -35,7 +35,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px; /* Increased gap */
+      gap: 15px;
       margin: 2rem auto;
       max-width: 1000px;
     }
@@ -43,16 +43,16 @@
     .pyramid-row {
       display: flex;
       justify-content: center;
-      gap: 20px; /* Increased gap */
+      gap: 20px;
     }
     
     .arabic-cell {
       font-family: 'Amiri', serif;
-      font-size: 2.5rem; /* Slightly reduced font size */
+      font-size: 2.5rem;
       background-color: var(--light);
       color: var(--dark);
-      width: 120px; /* Increased width */
-      height: 120px; /* Increased height */
+      width: 120px;
+      height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -63,15 +63,14 @@
       position: relative;
     }
     
-    /* Added container for text to better control positioning */
     .arabic-text {
       position: relative;
       z-index: 1;
-      transform: translateY(-10px); /* Adjust text vertical position */
+      transform: translateY(-10px);
     }
     
     .arabic-cell:hover {
-      transform: scale(1.3); /* Slightly reduced hover scale */
+      transform: scale(1.3);
       background-color: var(--primary);
       color: white;
       z-index: 10;
@@ -149,18 +148,19 @@
       display: block;
     }
     
-    .site-footer {
-      text-align: center;
-      margin-top: 2rem;
-      padding: 1rem;
-      color: var(--dark);
-    }
-    
-    .credit-link {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: bold;
-    }
+   .site-footer {
+  background: linear-gradient(135deg, var(--dark) 0%, var(--green-dark) 100%);
+  color: rgb(1, 1, 1);
+  text-align: center;
+  padding: var(--space-md);
+  margin-top: auto;
+}
+
+.credit-link {
+  color: var(--secondary);
+  text-decoration: none;
+  font-weight: bold;
+}
   </style>
 </head>
 <body class="tema5">
@@ -290,6 +290,167 @@
         </div>
       </div>
     </div>
+    
+    <!-- Tho Pyramid -->
+    <div class="pyramid-section" id="tho-pyramid">
+      <div class="pyramid-container">
+        <!-- Row 1 - Fathah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">ثَ</span></div>
+        </div>
+        
+        <!-- Row 2 - Kasrah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">ثِ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">ثِ</span></div>
+        </div>
+        
+        <!-- Row 3 - Dhommah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">ثُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">ثُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">ثُ</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ain Pyramid -->
+    <div class="pyramid-section" id="ain-pyramid">
+      <div class="pyramid-container">
+        <!-- Row 1 - Fathah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">عَ</span></div>
+        </div>
+        
+        <!-- Row 2 - Kasrah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">عِ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">عِ</span></div>
+        </div>
+        
+        <!-- Row 3 - Dhommah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">عُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">عُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">عُ</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ghain Pyramid -->
+    <div class="pyramid-section" id="ghain-pyramid">
+      <div class="pyramid-container">
+        <!-- Row 1 - Fathah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">غَ</span></div>
+        </div>
+        
+        <!-- Row 2 - Kasrah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">غِ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">غِ</span></div>
+        </div>
+        
+        <!-- Row 3 - Dhommah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">غُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">غُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">غُ</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fa Pyramid -->
+    <div class="pyramid-section" id="fa-pyramid">
+      <div class="pyramid-container">
+        <!-- Row 1 - Fathah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">فَ</span></div>
+        </div>
+        
+        <!-- Row 2 - Kasrah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">فِ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">فِ</span></div>
+        </div>
+        
+        <!-- Row 3 - Dhommah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">فُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">فُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">فُ</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Qaf Pyramid -->
+    <div class="pyramid-section" id="qaf-pyramid">
+      <div class="pyramid-container">
+        <!-- Row 1 - Fathah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">قَ</span></div>
+        </div>
+        
+        <!-- Row 2 - Kasrah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">قِ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">قِ</span></div>
+        </div>
+        
+        <!-- Row 3 - Dhommah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">قُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">قُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">قُ</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Kaf Pyramid -->
+    <div class="pyramid-section" id="kaf-pyramid">
+      <div class="pyramid-container">
+        <!-- Row 1 - Fathah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">كَ</span></div>
+        </div>
+        
+        <!-- Row 2 - Kasrah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">كِ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">كِ</span></div>
+        </div>
+        
+        <!-- Row 3 - Dhommah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">كُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">كُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">كُ</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Lam Pyramid -->
+    <div class="pyramid-section" id="lam-pyramid">
+      <div class="pyramid-container">
+        <!-- Row 1 - Fathah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">لَ</span></div>
+        </div>
+        
+        <!-- Row 2 - Kasrah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">لِ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">لِ</span></div>
+        </div>
+        
+        <!-- Row 3 - Dhommah -->
+        <div class="pyramid-row">
+          <div class="arabic-cell"><span class="arabic-text">لُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">لُ</span></div>
+          <div class="arabic-cell"><span class="arabic-text">لُ</span></div>
+        </div>
+      </div>
+    </div>
 
     <div class="button-group">
       <a href="../index.html" class="button">Kembali ke Laman Utama</a>
@@ -298,7 +459,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Guru SK Gading-Gading</a></p>
+    <p>Dibawakan oleh <a href="./teachers.html" class="credit-link">Sabarina Binti Yusof</a></p>
   </footer>
 
   <script>
@@ -307,7 +468,14 @@
       { id: 'ba-pyramid', name: 'Ba (ب)' },
       { id: 'ta-pyramid', name: 'Ta (ت)' },
       { id: 'dal-pyramid', name: 'Dal (د)' },
-      { id: 'zha-pyramid', name: 'Zha (ظ)' }
+      { id: 'zha-pyramid', name: 'Zha (ظ)' },
+      { id: 'tho-pyramid', name: 'Tho (ث)' },
+      { id: 'ain-pyramid', name: 'Ain (ع)' },
+      { id: 'ghain-pyramid', name: 'Ghain (غ)' },
+      { id: 'fa-pyramid', name: 'Fa (ف)' },
+      { id: 'qaf-pyramid', name: 'Qaf (ق)' },
+      { id: 'kaf-pyramid', name: 'Kaf (ك)' },
+      { id: 'lam-pyramid', name: 'Lam (ل)' }
     ];
     
     let currentPyramid = 0;
